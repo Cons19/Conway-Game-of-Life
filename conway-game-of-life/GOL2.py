@@ -131,4 +131,5 @@ class CA:
             #     print()
             # print()
 
+
 ca = CA().run()
