@@ -178,7 +178,7 @@ class App:
                             " Box size needs to be a factor of window size.")
 
         #  Create a grid object which can manipulate the squares
-        self.grid = Grid(self.length, self.size, tolerance, active_col='#008080', inactive_col='white')
+        self.grid = Grid(self.length, self.size, tolerance, active_col='#2d8706', inactive_col='white')
 
         #  tkinter event
         self.root = Tk()

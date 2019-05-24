@@ -17,6 +17,7 @@ def create_grid(event=None):
 
 root = tk.Tk()
 root.title("Grid")
+root.geometry("1000x1000")
 c = tk.Canvas(root, height=400, width=400, bg='white')
 c.pack(fill=tk.BOTH, expand=True)
 
