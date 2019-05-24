@@ -3,21 +3,12 @@ import numpy as np
 class CA:
 
     def __init__(self):
-        # self.current_state = [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        #               [2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #               [3, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #               [4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #               [5, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #               [6, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #               [7, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #               [8, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #               [9, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #               [10, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-        self.current_state = np.array([[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                              [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-                              [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-                              [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+
+        self.current_state = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -25,21 +16,11 @@ class CA:
                               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
 
-        # self.current_state = [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                       [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                       [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-        #                       [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-        #                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
         self.next_state = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                           [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+                           [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+                           [0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -70,37 +51,60 @@ class CA:
         """Progress one step and then return the current state."""
 
         self.current_state = self.next_state
+        self.next_state = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+        for x in range(1, 9):
+            for y in range(1, 9):
+                # check for alive cell cases
 
-        # for i in range(0, 10):
-        #     for j in range(0, 10):
-        #         self.next_state[i][j] = 0
-
-        # print("next() next_state clean")
-        # print(self.next_state)
-        # print("next() current_state before")
-        # print(self.current_state)
-
-
-        for x in range(0, 10):
-            for y in range(0, 10):
-                if self.current_state[x, y] == 0:
-                    self.next_state[x, y] = 1
-                elif self.current_state[x, y] == 1:
-                    self.next_state[x, y] = 0
-
-        # for x in range(0, 10):
-        #     for y in range(0, 10):
-        #         if self.current_state[x][y] == int('4'):
-        #             self.next_state[x][y] = 0
-                # elif self.current_state[x][y] == int('4'):
+                # if self.next_state[x][y] == 1 and ((self.check_neighbours_alive(x, y) == 0) or (self.check_neighbours_alive(x, y) == 1)):
                 #     self.next_state[x][y] = 0
-        #
-        # print("next_state with data")
-        # print(self.next_state)
-        # print("next() current_state after")
+                if (self.current_state[x][y] == 1) and ((self.check_neighbours_alive(x, y) == 0) or (self.check_neighbours_alive(x, y) == 1)):
+                    self.next_state[x][y] = 0
+                if (self.current_state[x][y] == 1) and ((self.check_neighbours_alive(x, y) == 2) or (self.check_neighbours_alive(x, y) == 3)):
+                    self.next_state[x][y] = 1
+                if (self.current_state[x][y] == 1) and (self.check_neighbours_alive(x, y) >= 4):
+                    self.next_state[x][y] = 0
+                # check for dead cell cases
+                if (self.current_state[x][y] == 0) and (self.check_neighbours_alive(x, y) == 3):
+                    self.next_state[x][y] = 1
+                if (self.current_state[x][y] == 0) and ((self.check_neighbours_alive(x, y) < 3) or (self.check_neighbours_alive(x, y) > 3)):
+                    self.next_state[x][y] = 0
+        # print("current ------ 1")
         # print(self.current_state)
+        # print("next ------ 1")
+        # print(self.next_state)
 
         return self.next_state
+
+    # check how many neighbours of a cell are alive
+    def check_neighbours_alive(self, x, y):
+        neighbour_count = 0
+        if self.current_state[x - 1][y - 1] == 1:
+            neighbour_count += 1
+        if self.current_state[x - 1][y] == 1:
+            neighbour_count += 1
+        if self.current_state[x - 1][y + 1] == 1:
+            neighbour_count += 1
+        if self.current_state[x][y-1] == 1:
+            neighbour_count += 1
+        if self.current_state[x][y + 1] == 1:
+            neighbour_count += 1
+        if self.current_state[x + 1][y -1] == 1:
+            neighbour_count += 1
+        if self.current_state[x + 1][y] == 1:
+            neighbour_count += 1
+        if self.current_state[x + 1][y + 1] == 1:
+            neighbour_count += 1
+        return neighbour_count
 
     def run(self, frames=5):
         """Progress and print num states.
@@ -118,18 +122,23 @@ class CA:
         #     print()
         # print()
 
+        print("current")
         print(self.current_state)
+        print("next")
 
+        print(self.next_state)
 
         for k in range(0, frames):
             data = self.next()
             # print('data ' + str(data))
             print('Frame: ' + str(k))
 
+            print("next 21212")
+
             print(data)
             #         print(data[i][j], end=" ")
             #     print()
             # print()
 
-
 ca = CA().run()
+
