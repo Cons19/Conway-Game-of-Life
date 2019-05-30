@@ -95,6 +95,7 @@ class GameOfLifeView:
         print('View - draw_current_frame')
         for i in range(0, 10):
             for j in range(0, 10):
+                # if self.controller.current_frame[j][i]:  # array of arrays [j - row][i - column]
                 if self.controller.current_frame[j][i]:  # array of arrays [j - row][i - column]
                     self.canvas.create_rectangle((i * 10)+1, (j * 10)+1, i * 10 + 10, j * 10 + 10, fill='black', width=0)
 

@@ -26,26 +26,6 @@ class GameOfLifeModel:
                                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
 
-        # self.current_state = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-        #                             [0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
-        # self.next_state = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
         # self.seeds = {
         #     "boat": [[1, 1, 0], [1, 0, 1], [0, 1, 0]],
         #     "beacon": [[1, 1, 0, 0], [1, 1, 0, 0], [0, 0, 1, 1], [0, 0, 1, 1]],
@@ -60,9 +40,6 @@ class GameOfLifeModel:
     def next(self):
         """Progress one step and then return the current state."""
 
-        # if temporary_state:
-        #     self.current_state = self.temporary_state
-        # else:
         self.current_state = self.next_state
         self.next_state = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -95,12 +72,11 @@ class GameOfLifeModel:
         # self.current_state = self.next_state
         print("current")
         print(self.current_state)
-        print("next")
+        print("model - next - next_state ")
         print(self.next_state)
         return self.next_state
 
-        # check how many neighbours of a cell are alive
-
+    # check how many neighbours of a cell are alive
     def check_neighbours_alive(self, x, y):
         neighbour_count = 0
         if self.current_state[x - 1][y - 1] == 1:
