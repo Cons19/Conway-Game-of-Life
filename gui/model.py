@@ -3,7 +3,16 @@ import numpy as np
 
 class GameOfLifeModel:
     print('Model')
-    def __init__(self):
+    def __init__(self, controller):
+        print('Controller1')
+        self.controller = controller
+        # self.current_state1 = np.zeros(shape = (100,100), type = float)
+        #
+        # print(self.current_state1)
+        # self.current_state1[99][99] = 1
+        # print(self.current_state1[99][99])
+        # print(self.current_state1)
+
         self.current_state = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -14,7 +23,6 @@ class GameOfLifeModel:
                                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
-
         self.next_state = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                     [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
@@ -25,7 +33,6 @@ class GameOfLifeModel:
                                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
-
         # self.seeds = {
         #     "boat": [[1, 1, 0], [1, 0, 1], [0, 1, 0]],
         #     "beacon": [[1, 1, 0, 0], [1, 1, 0, 0], [0, 0, 1, 1], [0, 0, 1, 1]],
@@ -39,8 +46,6 @@ class GameOfLifeModel:
 
     def next(self):
         """Progress one step and then return the current state."""
-
-        self.current_state = self.next_state
         self.next_state = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -70,10 +75,11 @@ class GameOfLifeModel:
                         (self.check_neighbours_alive(x, y) < 3) or (self.check_neighbours_alive(x, y) > 3)):
                     self.next_state[x][y] = 0
         # self.current_state = self.next_state
-        print("current")
+        print("model - next - current_state ")
         print(self.current_state)
         print("model - next - next_state ")
         print(self.next_state)
+        self.controller.current_frame = self.next_state
         return self.next_state
 
     # check how many neighbours of a cell are alive
@@ -96,33 +102,3 @@ class GameOfLifeModel:
         if self.current_state[x + 1][y + 1] == 1:
             neighbour_count += 1
         return neighbour_count
-
-    def run(self, frames=5):
-        """Progress and print num states.
-        0s are replaced by spaces, and 1s are replaced by * for pretty printing."""
-        print('Frame 0')
-
-        # print("current")
-        # print(self.current_state)
-        # print("next")
-        # print(self.next_state)
-        # self.next()
-        # print("current")
-        # print(self.current_state)
-        # print("next")
-        # print(self.next_state)
-        # self.next()
-        # print("current")
-        # print(self.current_state)
-        # print("next")
-        # print(self.next_state)
-
-        # for k in range(0, frames):
-        #     data = self.next()
-        #     print('Frame: ' + str(k))
-        #     print("next 21212")
-        #     print(data)
-        # print(self.next())
-        # print(data)
-        return self.next_state
-
