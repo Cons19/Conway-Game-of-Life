@@ -1,3 +1,4 @@
+import numpy as np
 import tkinter as tk
 
 
@@ -12,6 +13,22 @@ class GameOfLifeView:
         self.canvas.pack(fill=tk.BOTH, expand=True)
         self.canvas.bind('<Configure>', self.draw_grid)
         self.canvas.bind('<Button-1>', self.draw_square)
+        # self.canvas.bind('<Button-1>', self.save_frame)
+        self.next_button = tk.Button(self.window, text="Next", command=self.controller.next_action)
+        # self.next_button = tk.Button(self.window, text="Next", self.save_frame)
+        self.next_button.pack()
+        self.next_button.place(height=30, width=60)
+        self.temporary_state = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+
 
     def draw_grid(self, event=None):
         width = self.canvas.winfo_width()  # Get current width of canvas
@@ -37,6 +54,41 @@ class GameOfLifeView:
                                      self.roundNumber(event.y) + 10,
                                      fill='red',
                                      width=0)
+        print('draw_square')
+        print(event.x)
+        print(event.y)
+        print(self.roundNumber(event.x))
+        print(self.roundNumber(event.y))
+
+        # self.temporary_state = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        #                             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+        self.temporary_state = self.controller.next_state
+        print(self.temporary_state)
+
+        for i in range(0, 10):
+            for j in range(0, 10):
+                if i == self.roundNumber(event.x)/10 and j == self.roundNumber(event.y)/10:
+                    self.temporary_state[j][i] = 1
+
+        print(self.temporary_state)
+
+
+    def save_frame(self, event=None):
+        print('save_frame')
+        print(self.roundNumber(event.x))
+        print(event.x)
+        print(self.roundNumber(event.y))
+        # self.roundNumber(event.x)
+        # self.roundNumber(event.y)
+        # return (i, j)
 
     def draw_current_frame(self):
 

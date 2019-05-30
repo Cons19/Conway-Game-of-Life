@@ -15,6 +15,11 @@ class GameOfLifeController:
         self.view = gui.view.GameOfLifeView(self)
 
         self.current_frame = self.get_current_frame()
+        print('self.model.next_state')
+        print(self.model.next_state)
+
+        self.next_state = self.model.next_state
+        self.next_action = self.next_action()
 
 
 
@@ -27,6 +32,12 @@ class GameOfLifeController:
         print('------model run')
         # print(self.model.run())
         return self.model.run()
+
+    def next_action(self):
+        pass
+        # self.view.save_frame()
+        self.model.next_state = self.view.temporary_state  # send the temporarty data from the view to the model to create the next frame
+        # self.view.draw_current_frame()
 
     # def quit_action(self):
     #     self.view.window.destroy()

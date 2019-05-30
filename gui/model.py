@@ -60,6 +60,9 @@ class GameOfLifeModel:
     def next(self):
         """Progress one step and then return the current state."""
 
+        # if temporary_state:
+        #     self.current_state = self.temporary_state
+        # else:
         self.current_state = self.next_state
         self.next_state = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -90,6 +93,10 @@ class GameOfLifeModel:
                         (self.check_neighbours_alive(x, y) < 3) or (self.check_neighbours_alive(x, y) > 3)):
                     self.next_state[x][y] = 0
         # self.current_state = self.next_state
+        print("current")
+        print(self.current_state)
+        print("next")
+        print(self.next_state)
         return self.next_state
 
         # check how many neighbours of a cell are alive
@@ -119,20 +126,20 @@ class GameOfLifeModel:
         0s are replaced by spaces, and 1s are replaced by * for pretty printing."""
         print('Frame 0')
 
-        print("current")
-        print(self.current_state)
-        print("next")
-        print(self.next_state)
-        self.next()
-        print("current")
-        print(self.current_state)
-        print("next")
-        print(self.next_state)
-        self.next()
-        print("current")
-        print(self.current_state)
-        print("next")
-        print(self.next_state)
+        # print("current")
+        # print(self.current_state)
+        # print("next")
+        # print(self.next_state)
+        # self.next()
+        # print("current")
+        # print(self.current_state)
+        # print("next")
+        # print(self.next_state)
+        # self.next()
+        # print("current")
+        # print(self.current_state)
+        # print("next")
+        # print(self.next_state)
 
         # for k in range(0, frames):
         #     data = self.next()
