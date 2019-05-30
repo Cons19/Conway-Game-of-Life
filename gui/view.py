@@ -7,7 +7,7 @@ class GameOfLifeView:
         self.controller = controller
         self.window = tk.Tk()
         self.window.title("Game Of Life")
-        self.window.geometry("500x500")
+        self.window.geometry("100x100")
         self.canvas = tk.Canvas(self.window, bg='white', highlightthickness=0)
         self.canvas.pack(fill=tk.BOTH, expand=True)
         self.canvas.bind('<Configure>', self.draw_grid)
@@ -28,14 +28,27 @@ class GameOfLifeView:
                 self.canvas.create_line(i, j, width, j, width=1, fill='#C0C0C0')
                 self.canvas.create_line(i, 0, i, height, width=1, fill='#C0C0C0')
         # self.draw_square()
+        self.draw_current_frame()
 
     def draw_square(self, event=None):
-        self.canvas.create_rectangle(self.roundNumber(event.x),
-                                     self.roundNumber(event.y),
+        self.canvas.create_rectangle(self.roundNumber(event.x)+1,
+                                     self.roundNumber(event.y)+1,
                                      self.roundNumber(event.x) + 10,
                                      self.roundNumber(event.y) + 10,
-                                     fill='black',
-                                     width=1)
+                                     fill='red',
+                                     width=0)
+
+    def draw_current_frame(self):
+
+        print('View - draw_current_frame')
+        for i in range(0, 10):
+            for j in range(0, 10):
+                if self.controller.current_frame[j][i]:  # array of arrays [j - row][i - column]
+                    self.canvas.create_rectangle((i * 10)+1, (j * 10)+1, i * 10 + 10, j * 10 + 10, fill='black', width=0)
+
+        # self.current_frame
+
+        # self.canvas.create_rectangle(i*10, j*10, i*10+10, j*10+10, fill='black', width=1)
 
     def roundNumber(self, number):
         return int(number/10)*10
