@@ -7,8 +7,11 @@ class GameOfLifeModel:
         self.controller = controller
         np.set_printoptions(threshold=sys.maxsize)
         # initial states
-        self.current_state = np.zeros(shape=(30, 30),dtype=int)
-        self.next_state = np.zeros(shape=(30, 30), dtype=int)
+        # self.current_state = np.zeros(shape=(30, 30), dtype=int)
+        # self.current_state1 = ['0' for i in range(10) [ '1' for j in range(10)]]
+        self.current_state = [[0 for x in range(30)] for x in range(30)]
+        self.next_state = [[0 for x in range(30)] for x in range(30)]
+        # self.next_state = np.zeros(shape=(30, 30), dtype=int)
 
         # glider pattern
         # self.next_state[3][5] = 1
@@ -39,24 +42,41 @@ class GameOfLifeModel:
     def next(self):
         """Progress one step and then return the current state."""
         self.current_state = self.next_state
-        self.next_state = np.zeros(shape=(30, 30), dtype=int)
+        # self.next_state = np.zeros(shape=(30, 30), dtype=int)
+        self.next_state = [[0 for x in range(30)] for x in range(30)]
+
         for x in range(1, 29):
             for y in range(1, 29):
                 # check for alive cell cases
-                if (self.current_state[x][y] == 1) and (
-                        (self.check_neighbours_alive(x, y) == 0) or (self.check_neighbours_alive(x, y) == 1)):
-                    self.next_state[x][y] = 0
-                if (self.current_state[x][y] == 1) and (
-                        (self.check_neighbours_alive(x, y) == 2) or (self.check_neighbours_alive(x, y) == 3)):
-                    self.next_state[x][y] = 1
-                if (self.current_state[x][y] == 1) and (self.check_neighbours_alive(x, y) >= 4):
-                    self.next_state[x][y] = 0
+                if self.current_state[x][y] == 1:
+                    if self.check_neighbours_alive(x, y) == 0 or self.check_neighbours_alive(x, y) == 1:
+                        self.next_state[x][y] = 0
+                    if self.check_neighbours_alive(x, y) == 2 or self.check_neighbours_alive(x, y) == 3:
+                        self.next_state[x][y] = 1
+                    if self.check_neighbours_alive(x, y) >= 4:
+                        self.next_state[x][y] = 0
                 # check for dead cell cases
-                if (self.current_state[x][y] == 0) and (self.check_neighbours_alive(x, y) == 3):
-                    self.next_state[x][y] = 1
-                if (self.current_state[x][y] == 0) and (
-                        (self.check_neighbours_alive(x, y) < 3) or (self.check_neighbours_alive(x, y) > 3)):
-                    self.next_state[x][y] = 0
+                if self.current_state[x][y] == 0:
+                    if self.check_neighbours_alive(x, y) == 3:
+                        self.next_state[x][y] = 1
+                    if self.check_neighbours_alive(x, y) < 3 or self.check_neighbours_alive(x, y) > 3:
+                        self.next_state[x][y] = 0
+
+                # # check for alive cell cases
+                # if (self.current_state[x][y] == 1) and (
+                #         (self.check_neighbours_alive(x, y) == 0) or (self.check_neighbours_alive(x, y) == 1)):
+                #     self.next_state[x][y] = 0
+                # if (self.current_state[x][y] == 1) and (
+                #         (self.check_neighbours_alive(x, y) == 2) or (self.check_neighbours_alive(x, y) == 3)):
+                #     self.next_state[x][y] = 1
+                # if (self.current_state[x][y] == 1) and (self.check_neighbours_alive(x, y) >= 4):
+                #     self.next_state[x][y] = 0
+                # # check for dead cell cases
+                # if (self.current_state[x][y] == 0) and (self.check_neighbours_alive(x, y) == 3):
+                #     self.next_state[x][y] = 1
+                # if (self.current_state[x][y] == 0) and (
+                #         (self.check_neighbours_alive(x, y) < 3) or (self.check_neighbours_alive(x, y) > 3)):
+                #     self.next_state[x][y] = 0
         self.controller.current_frame = self.current_state
         return self.next_state
 

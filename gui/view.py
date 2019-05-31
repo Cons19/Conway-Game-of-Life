@@ -19,7 +19,7 @@ class GameOfLifeView:
         self.canvas.pack(fill=tk.BOTH, expand=True)
         self.canvas.bind('<Configure>', self.draw_grid)
         self.canvas.bind('<Button-1>', self.draw_square)
-        self.next_button = tk.Button(self.window, text="Start", command=self.controller.next_action)
+        self.next_button = tk.Button(self.window, text="Start", command=self.controller.start_action)
         self.next_button.pack(side=tk.LEFT)
         self.next_button = tk.Button(self.window, text="Pause", command=self.controller.next_action)
         self.next_button.pack(side=tk.LEFT)
@@ -76,11 +76,11 @@ class GameOfLifeView:
         width = self.canvas.winfo_width()  # Get current width of canvas
         height = self.canvas.winfo_height()  # Get current height of canvas
 
-        # make 100+100 = 200 lines
-        for i in range(0, width, 10):
-           for j in range(0, height, 10):
-               self.canvas.create_line(i, j, width, j, width=1, fill='#C0C0C0')
-               self.canvas.create_line(i, 0, i, height, width=1, fill='#C0C0C0')
+        # # make 100+100 = 200 lines
+        # for i in range(0, width, 10):
+        #    for j in range(0, height, 10):
+        #        self.canvas.create_line(i, j, width, j, width=1, fill='#C0C0C0')
+        #        self.canvas.create_line(i, 0, i, height, width=1, fill='#C0C0C0')
 
         # make squares
         for i in range(0, 29):
