@@ -18,7 +18,6 @@ class GameOfLifeView:
     def draw_grid(self, event=None):
         width = self.canvas.winfo_width()  # Get current width of canvas
         height = self.canvas.winfo_height()  # Get current height of canvas
-
         # make 100+100 = 200 lines
         for i in range(0, width, 10):
             for j in range(0, height, 10):
@@ -34,10 +33,10 @@ class GameOfLifeView:
         height = self.canvas.winfo_height()  # Get current height of canvas
 
         # make 100+100 = 200 lines
-        for i in range(0, width, 10):
-            for j in range(0, height, 10):
-                self.canvas.create_line(i, j, width, j, width=1, fill='#C0C0C0')
-                self.canvas.create_line(i, 0, i, height, width=1, fill='#C0C0C0')
+        #for i in range(0, width, 10):
+        #    for j in range(0, height, 10):
+        #        self.canvas.create_line(i, j, width, j, width=1, fill='#C0C0C0')
+        #        self.canvas.create_line(i, 0, i, height, width=1, fill='#C0C0C0')
 
         # make squares
         for i in range(0, 29):

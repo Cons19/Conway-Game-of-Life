@@ -11,6 +11,5 @@ class GameOfLifeController:
         self.view.window.mainloop()
 
     def next_action(self):
-        self.model.current_state = self.model.next_state
         self.model.next()
         self.view.draw_next_frame()
