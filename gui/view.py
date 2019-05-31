@@ -14,6 +14,16 @@ class GameOfLifeView:
         self.next_button = tk.Button(self.window, text="Next", command=self.controller.next_action)
         self.next_button.pack()
         self.next_button.place(height=30, width=60)
+        OPTIONS = [
+            "Jan",
+            "Feb",
+            "Mar"
+        ]
+        variable = tk.StringVar(self.window)
+        variable.set(OPTIONS[0])  # default value
+
+        w = tk.OptionMenu(self.window, variable, *OPTIONS)
+        w.pack()
 
     def draw_grid(self, event=None):
         width = self.canvas.winfo_width()  # Get current width of canvas

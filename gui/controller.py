@@ -1,6 +1,7 @@
 import gui.model
 import gui.view
 
+
 class GameOfLifeController:
     def __init__(self):
         self.model = gui.model.GameOfLifeModel(self)
