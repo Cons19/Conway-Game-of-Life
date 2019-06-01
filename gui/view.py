@@ -70,8 +70,8 @@ class GameOfLifeView:
         #        self.canvas.create_line(i, 0, i, height, width=1, fill='#C0C0C0')
 
         # make squares
-        for i in range(0, 29):
-            for j in range(0, 29):
+        for i in range(0, 100):
+            for j in range(0, 100):
                 if self.controller.current_frame[j][i]:  # array of arrays [j - row][i - column]
                     self.canvas.create_rectangle((i * 10)+1, (j * 10)+1, i * 10 + 10, j * 10 + 10, fill='black', width=0)
 

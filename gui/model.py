@@ -10,8 +10,8 @@ class GameOfLifeModel:
         # initial states
         # self.current_state = np.zeros(shape=(30, 30), dtype=int)
         # self.current_state1 = ['0' for i in range(10) [ '1' for j in range(10)]]
-        self.current_state = [[0 for x in range(30)] for x in range(30)]
-        self.next_state = [[0 for x in range(30)] for x in range(30)]
+        self.current_state = [[0 for x in range(100)] for x in range(100)]
+        self.next_state = [[0 for x in range(100)] for x in range(100)]
         # self.next_state = np.zeros(shape=(30, 30), dtype=int)
 
         # glider pattern
@@ -34,6 +34,8 @@ class GameOfLifeModel:
         self.next_state[10][12] = 1
         self.next_state[11][12] = 1
         self.next_state[12][12] = 1
+        self.next_state[75][99] = 1
+        self.next_state[2][2] = 1
 
         with open('rule_sets.json') as rules_file:
             self.rule_sets = json.load(rules_file)
@@ -78,10 +80,10 @@ class GameOfLifeModel:
         """Progress one step and then return the current state."""
         self.current_state = self.next_state
         # self.next_state = np.zeros(shape=(30, 30), dtype=int)
-        self.next_state = [[0 for x in range(30)] for x in range(30)]
+        self.next_state = [[0 for x in range(100)] for x in range(100)]
 
-        for x in range(1, 29):
-            for y in range(1, 29):
+        for x in range(1, 99):
+            for y in range(1, 99):
                 # check for alive cell cases
                 if self.current_state[x][y] == 1:
                     if self.check_neighbours_alive(x, y) == 0 or self.check_neighbours_alive(x, y) == 1:
