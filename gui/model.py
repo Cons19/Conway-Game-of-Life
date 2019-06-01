@@ -51,17 +51,22 @@ class GameOfLifeModel:
                 print(self.rule_sets[i])
                 self.list_rule1.append(self.rule_sets[i])
                 for j in self.rule_sets[i]:
+                    #print(j)
                     #print("--")
                     #print(self.rule_sets[i][j])
                     self.list_states1.append(self.rule_sets[i][j])
 
-        print(self.list_states1[0])
-        print(self.list_states1[1])
+        #print(self.list_states1[0])
+        #print(self.list_states1[1])
+        print(self.rule_sets[self.rules[0]])
 
         for d in self.list_states1[0]:
             for nr_neighbours, result in d.items():
-                print(nr_neighbours, result)
+                self.nr_neighbours = nr_neighbours
+                self.result = result
 
+        print("list_states")
+        print(self.list_states1)
         print("--")
         for d in self.list_states1[1]:
             for nr_neighbours, result in d.items():
@@ -99,21 +104,25 @@ class GameOfLifeModel:
                     if self.check_neighbours_alive(x, y) < 3 or self.check_neighbours_alive(x, y) > 3:
                         self.next_state[x][y] = 0
 
-                # # check for alive cell cases
-                # if (self.current_state[x][y] == 1) and (
-                #         (self.check_neighbours_alive(x, y) == 0) or (self.check_neighbours_alive(x, y) == 1)):
-                #     self.next_state[x][y] = 0
-                # if (self.current_state[x][y] == 1) and (
-                #         (self.check_neighbours_alive(x, y) == 2) or (self.check_neighbours_alive(x, y) == 3)):
-                #     self.next_state[x][y] = 1
-                # if (self.current_state[x][y] == 1) and (self.check_neighbours_alive(x, y) >= 4):
-                #     self.next_state[x][y] = 0
-                # # check for dead cell cases
-                # if (self.current_state[x][y] == 0) and (self.check_neighbours_alive(x, y) == 3):
-                #     self.next_state[x][y] = 1
-                # if (self.current_state[x][y] == 0) and (
-                #         (self.check_neighbours_alive(x, y) < 3) or (self.check_neighbours_alive(x, y) > 3)):
-                #     self.next_state[x][y] = 0
+
+        # for x in range(1, 99):
+        #     for y in range(1, 99):
+        #         # check for alive cell cases
+        #         if self.current_state[x][y] == 1:
+        #             if self.check_neighbours_alive(x, y) == 0 or self.check_neighbours_alive(x, y) == 1:
+        #                 self.next_state[x][y] = 0
+        #             if self.check_neighbours_alive(x, y) == 2 or self.check_neighbours_alive(x, y) == 3:
+        #                 self.next_state[x][y] = 1
+        #             if self.check_neighbours_alive(x, y) >= 4:
+        #                 self.next_state[x][y] = 0
+        #         # check for dead cell cases
+        #         if self.current_state[x][y] == 0:
+        #             if self.check_neighbours_alive(x, y) == 3:
+        #                 self.next_state[x][y] = 1
+        #             if self.check_neighbours_alive(x, y) < 3 or self.check_neighbours_alive(x, y) > 3:
+        #                 self.next_state[x][y] = 0
+
+
         self.controller.current_frame = self.current_state
         return self.next_state
 
