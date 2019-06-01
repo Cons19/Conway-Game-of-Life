@@ -1,3 +1,4 @@
+import json
 import sys
 import numpy as np
 
@@ -34,6 +35,40 @@ class GameOfLifeModel:
         self.next_state[11][12] = 1
         self.next_state[12][12] = 1
 
+        with open('rule_sets.json') as rules_file:
+            self.rule_sets = json.load(rules_file)
+
+
+        self.list_rule1 = []
+        self.list_states1 = []
+        self.rules = []
+        #print(self.rule_sets)
+        for i in self.rule_sets:
+            self.rules.append(i)
+            if i == "Rule 1":
+                print(self.rule_sets[i])
+                self.list_rule1.append(self.rule_sets[i])
+                for j in self.rule_sets[i]:
+                    #print("--")
+                    #print(self.rule_sets[i][j])
+                    self.list_states1.append(self.rule_sets[i][j])
+
+        print(self.list_states1[0])
+        print(self.list_states1[1])
+
+        for d in self.list_states1[0]:
+            for nr_neighbours, result in d.items():
+                print(nr_neighbours, result)
+
+        print("--")
+        for d in self.list_states1[1]:
+            for nr_neighbours, result in d.items():
+                print(nr_neighbours, result)
+
+    def rule_sets(self):
+        return list(self.rule_sets['Rule 1'].keys())
+        #for k, v in self.rule_sets:
+            #print(k, v)
 
     def state(self):
         """Returns the next state."""

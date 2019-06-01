@@ -1,12 +1,12 @@
 import gui.model
 import gui.view
-import time
+
 
 class GameOfLifeController:
     def __init__(self):
         self.model = gui.model.GameOfLifeModel(self)
+        self.rules = self.model.rules
         self.view = gui.view.GameOfLifeView(self)
-
         self.current_frame = self.model.next_state
         self.next_state = self.model.next_state
         self.next_action = self.next_action()
@@ -19,7 +19,7 @@ class GameOfLifeController:
 
     def start_action(self):
         pass
-        print('Apples')
+        #print('Apples')
         # self.model.next()
         # self.view.draw_next_frame()
         # time.sleep(10)
@@ -28,7 +28,4 @@ class GameOfLifeController:
         #     self.start_action()
 
         # self.view.window.after(1, self.start_action)
-
-
-
 
