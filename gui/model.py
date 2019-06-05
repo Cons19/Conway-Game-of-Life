@@ -16,7 +16,7 @@ class GameOfLifeModel:
 
         self.pattern("Exploder")
 
-        with open('rule_sets.json') as rules_file:
+        with open('../rule_sets.json') as rules_file:
             self.rule_sets = json.load(rules_file)
 
 
@@ -113,22 +113,63 @@ class GameOfLifeModel:
         for x in range(1, 99):
             for y in range(1, 99):
                 # check for alive cell cases
-                if self.current_state[x][y] == int(self.status[1]):
-                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[0]) or \
-                            self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[1]):
-                        self.next_state[x][y] = int(self.alive_result[0])
-                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[2]) or \
-                            self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[3]):
-                        self.next_state[x][y] = int(self.alive_result[2])
-                    if self.check_neighbours_alive(x, y) >= int(self.alive_nr_neighbours[4]):
-                        self.next_state[x][y] = int(self.alive_result[4])
+                if self.current_state[x][y] == 1:
+                    if self.check_neighbours_alive(x, y) == 0:
+                        self.next_state[x][y] = 0
+                    if self.check_neighbours_alive(x, y) == 1:
+                        self.next_state[x][y] = 0
+                    if self.check_neighbours_alive(x, y) == 2:
+                        self.next_state[x][y] = 1
+                    if self.check_neighbours_alive(x, y) == 3:
+                        self.next_state[x][y] = 1
+                    if self.check_neighbours_alive(x, y) == 4:
+                        self.next_state[x][y] = 1
+                    if self.check_neighbours_alive(x, y) == 5:
+                        self.next_state[x][y] = 0
+                    if self.check_neighbours_alive(x, y) == 6:
+                        self.next_state[x][y] = 1
+                    if self.check_neighbours_alive(x, y) == 7:
+                        self.next_state[x][y] = 1
+                    if self.check_neighbours_alive(x, y) == 8:
+                        self.next_state[x][y] = 1
                 # check for dead cell cases
-                if self.current_state[x][y] == int(self.status[0]):
-                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[3]):
-                        self.next_state[x][y] = int(self.dead_result[3])
-                    if self.check_neighbours_alive(x, y) < int(self.dead_nr_neighbours[3]) or \
-                            self.check_neighbours_alive(x, y) > int(self.dead_nr_neighbours[3]):
-                        self.next_state[x][y] = int(self.dead_result[0])
+                if self.current_state[x][y] == 0:
+                    if self.check_neighbours_alive(x, y) == 0:
+                        self.next_state[x][y] = 0
+                    if self.check_neighbours_alive(x, y) == 1:
+                        self.next_state[x][y] = 0
+                    if self.check_neighbours_alive(x, y) == 2:
+                        self.next_state[x][y] = 0
+                    if self.check_neighbours_alive(x, y) == 3:
+                        self.next_state[x][y] = 1
+                    if self.check_neighbours_alive(x, y) == 4:
+                        self.next_state[x][y] = 1
+                    if self.check_neighbours_alive(x, y) == 5:
+                        self.next_state[x][y] = 1
+                    if self.check_neighbours_alive(x, y) == 6:
+                        self.next_state[x][y] = 0
+                    if self.check_neighbours_alive(x, y) == 7:
+                        self.next_state[x][y] = 0
+                    if self.check_neighbours_alive(x, y) == 8:
+                        self.next_state[x][y] = 0
+                #
+                # # check for alive cell cases
+                # if self.current_state[x][y] == int(self.status[1]):
+                #     if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[0]) or \
+                #             self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[1]):
+                #         self.next_state[x][y] = int(self.alive_result[0])
+                #     if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[2]) or \
+                #             self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[3]):
+                #         self.next_state[x][y] = int(self.alive_result[2])
+                #     if self.check_neighbours_alive(x, y) >= int(self.alive_nr_neighbours[4]):
+                #         self.next_state[x][y] = int(self.alive_result[4])
+                # # check for dead cell cases
+                # if self.current_state[x][y] == int(self.status[0]):
+                #     if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[3]):
+                #         self.next_state[x][y] = int(self.dead_result[3])
+                #     if self.check_neighbours_alive(x, y) < int(self.dead_nr_neighbours[3]) or \
+                #             self.check_neighbours_alive(x, y) > int(self.dead_nr_neighbours[3]):
+                #         self.next_state[x][y] = int(self.dead_result[0])
 
 
         # for x in range(1, 99):
@@ -147,6 +188,8 @@ class GameOfLifeModel:
         #                 self.next_state[x][y] = 1
         #             if self.check_neighbours_alive(x, y) < 3 or self.check_neighbours_alive(x, y) > 3:
         #                 self.next_state[x][y] = 0
+
+
 
 
         self.controller.current_frame = self.current_state
