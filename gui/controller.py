@@ -54,14 +54,15 @@ class GameOfLifeController:
         print(selection)
         self.model.reset_rules()
         self.model.selected_rule = selection
-        self.model.read_rule_sets_config()
+        self.model.read_rule_sets_config()  # read_rule_sets_config(selection)
 
     def patterns_set_menu_action(self, selection):
         print('patterns_menu')
         print(selection)
         self.model.reset_patterns()
         self.model.selected_pattern = selection
-        self.model.read_pattern_sets_config()
+        self.model.read_pattern_sets_config()  # read_pattern_sets_config(selection)
+        self.next_frame_action()
 
     # check how many neighbours of a cell are alive
     def check_neighbours_alive(self, x, y):
