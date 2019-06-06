@@ -11,10 +11,17 @@ class GameOfLifeView:
 
         self.rules = []
         self.rules_options = ["Change Rule"]
-        self.variable = tk.StringVar(self.window)
-        self.variable.set(self.rules_options[0])  # default value
+        self.default_rule_text = tk.StringVar(self.window)
+        self.default_rule_text.set(self.rules_options[0])  # default value
         self.rules = self.controller.rules
         self.rules_options += self.rules
+
+        self.patterns = []
+        self.patterns_options = ["Default patterns"]
+        self.default_pattern_text = tk.StringVar(self.window)
+        self.default_pattern_text.set(self.patterns_options[0])
+        self.patterns = self.controller.patterns
+        self.patterns_options += self.patterns
 
         # GUI Frames
         self.body_frame = Frame(self.window)
@@ -35,11 +42,13 @@ class GameOfLifeView:
         self.pause_button.pack(side=TOP, anchor=N, pady=5)
         self.next_frame_button = tk.Button(self.right_frame, text="Next Frame", command=self.controller.next_frame_action)
         self.next_frame_button.pack(side=TOP, anchor=N, pady=5)
-        self.default_button = tk.Button(self.right_frame, text="Default", command=self.controller.default_button)
-        self.default_button.pack(side=TOP, anchor=N, pady=5)
         self.randomize_button = tk.Button(self.right_frame, text="Randomize", command=self.controller.randomize_action)
         self.randomize_button.pack(side=TOP, anchor=N, pady=5)
-        self.rule_set_menu = tk.OptionMenu(self.right_frame, self.variable, *self.rules_options, command=self.controller.rules_set_menu_action)
+        # self.default_button = tk.Button(self.right_frame, text="Default", command=self.controller.default_button)
+        # self.default_button.pack(side=TOP, anchor=N, pady=5)
+        self.pattern_set_menu = tk.OptionMenu(self.right_frame, self.default_pattern_text, *self.patterns_options, command=self.controller.patterns_set_menu_action)
+        self.pattern_set_menu.pack(side=TOP, anchor=N, pady=5)
+        self.rule_set_menu = tk.OptionMenu(self.right_frame, self.default_rule_text, *self.rules_options, command=self.controller.rules_set_menu_action)
         self.rule_set_menu.pack(side=TOP, anchor=N, pady=5)
         self.scale_button = tk.Scale(self.right_frame, from_=1, to=1000, length=300, orient=tk.HORIZONTAL)
         self.scale_button.pack(side=TOP, anchor=N, pady=5)
