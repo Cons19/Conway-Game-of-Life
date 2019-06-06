@@ -13,7 +13,7 @@ class GameOfLifeController:
         self.next_state = self.model.next_state
         self.game_paused = True
         self.task = 1
-        # de la mine, 111
+        # de la mine, 111 1
         self.view.window.mainloop()
 
     def start_action(self):
