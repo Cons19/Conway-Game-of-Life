@@ -14,89 +14,108 @@ class GameOfLifeModel:
         self.next_state = [[0 for x in range(100)] for x in range(100)]
         # self.next_state = np.zeros(shape=(30, 30), dtype=int)
 
-        self.pattern("Exploder")
-
-        with open('../rule_sets.json') as rules_file:
-            self.rule_sets = json.load(rules_file)
-
-
-        self.list_rule1 = []
-        self.list_states1 = []
+        self.selected_rule = "Rule 1"
+        self.list_rule = []
+        self.list_states = []
         self.rules = []
         self.status = []
+        self.dead_nr_neighbours = []
+        self.dead_result = []
+        self.alive_nr_neighbours = []
+        self.alive_result = []
+
+        self.patterns = []
+        self.pattern("Exploder")
+
+        with open('rule_sets.json') as rules_file:
+            self.rule_sets = json.load(rules_file)
+
+        self.read_rule_sets_config()
+
+
+    def reset_rules(self):
+        self.list_rule = []
+        self.list_states = []
+        self.status = []
+        self.dead_nr_neighbours = []
+        self.dead_result = []
+        self.alive_nr_neighbours = []
+        self.alive_result = []
+
+    def read_rule_sets_config(self):
+
+        print("model - read_config")
+        print(self.selected_rule)
         #print(self.rule_sets)
         for i in self.rule_sets:
             self.rules.append(i)
-            if i == self.rules[0]:
+            if i == self.selected_rule:
                 print(self.rule_sets[i])
-                self.list_rule1.append(self.rule_sets[i])
+                self.list_rule.append(self.rule_sets[i])
                 for j in self.rule_sets[i]:
                     self.status.append(j)
-                    self.list_states1.append(self.rule_sets[i][j])
+                    self.list_states.append(self.rule_sets[i][j])
 
         #print(self.list_states1[0])
         #print(self.list_states1[1])
-        print(self.status[0])
+        print(self.status[1])
         print(self.rule_sets[self.rules[0]])
 
-        self.dead_nr_neighbours = []
-        self.dead_result = []
-        for d in self.list_states1[0]:
+        for d in self.list_states[0]:
             for nr_neighbours, result in d.items():
                 self.dead_nr_neighbours.append(nr_neighbours)
                 self.dead_result.append(result)
 
         print("list_states")
-        print(self.list_states1)
+        print(self.list_states)
         print("--")
-        self.alive_nr_neighbours = []
-        self.alive_result = []
-        for d in self.list_states1[1]:
+
+        for d in self.list_states[1]:
             for nr_neighbours, result in d.items():
                 self.alive_nr_neighbours.append(nr_neighbours)
                 self.alive_result.append(result)
 
     def pattern(self, name):
-        if name == "Clear":
-            pass
-        elif name == "Glider":
-            self.next_state[3][5] = 1
-            self.next_state[4][6] = 1
-            self.next_state[5][4] = 1
-            self.next_state[5][5] = 1
-            self.next_state[5][6] = 1
+        # if name == "Clear":
+        #     self.next_state = [[0 for x in range(100)] for x in range(100)]
+        if name == "Glider":
+            self.next_state[49][50] = 1
+            self.next_state[50][51] = 1
+            self.next_state[51][49] = 1
+            self.next_state[51][50] = 1
+            self.next_state[51][51] = 1
         elif name == "Exploder":
-            self.next_state[8][8] = 1
-            self.next_state[9][8] = 1
-            self.next_state[10][8] = 1
-            self.next_state[11][8] = 1
-            self.next_state[12][8] = 1
-            self.next_state[8][10] = 1
-            self.next_state[12][10] = 1
-            self.next_state[8][12] = 1
-            self.next_state[9][12] = 1
-            self.next_state[10][12] = 1
-            self.next_state[11][12] = 1
-            self.next_state[12][12] = 1
+            self.next_state[48][48] = 1
+            self.next_state[48][50] = 1
+            self.next_state[48][52] = 1
+            self.next_state[49][48] = 1
+            self.next_state[49][52] = 1
+            self.next_state[50][48] = 1
+            self.next_state[50][52] = 1
+            self.next_state[51][48] = 1
+            self.next_state[51][52] = 1
+            self.next_state[52][48] = 1
+            self.next_state[52][50] = 1
+            self.next_state[52][52] = 1
         elif name == "Small Exploder":
-            self.next_state[20][20] = 1
-            self.next_state[21][19] = 1
-            self.next_state[21][20] = 1
-            self.next_state[21][21] = 1
-            self.next_state[22][19] = 1
-            self.next_state[22][21] = 1
-            self.next_state[23][20] = 1
+            self.next_state[49][49] = 1
+            self.next_state[50][48] = 1
+            self.next_state[50][49] = 1
+            self.next_state[50][50] = 1
+            self.next_state[51][48] = 1
+            self.next_state[51][50] = 1
+            self.next_state[52][49] = 1
         elif name == "10 Cell Row":
-            self.next_state[30][30] = 1
-            self.next_state[30][31] = 1
-            self.next_state[30][32] = 1
-            self.next_state[30][33] = 1
-            self.next_state[30][34] = 1
-            self.next_state[30][35] = 1
-            self.next_state[30][36] = 1
-            self.next_state[30][37] = 1
-            self.next_state[30][38] = 1
-            self.next_state[30][39] = 1
+            self.next_state[50][45] = 1
+            self.next_state[50][46] = 1
+            self.next_state[50][47] = 1
+            self.next_state[50][48] = 1
+            self.next_state[50][49] = 1
+            self.next_state[50][50] = 1
+            self.next_state[50][51] = 1
+            self.next_state[50][52] = 1
+            self.next_state[50][53] = 1
+            self.next_state[50][54] = 1
 
 
 
@@ -113,84 +132,45 @@ class GameOfLifeModel:
         for x in range(1, 99):
             for y in range(1, 99):
                 # check for alive cell cases
-                if self.current_state[x][y] == 1:
-                    if self.check_neighbours_alive(x, y) == 0:
-                        self.next_state[x][y] = 0
-                    if self.check_neighbours_alive(x, y) == 1:
-                        self.next_state[x][y] = 0
-                    if self.check_neighbours_alive(x, y) == 2:
-                        self.next_state[x][y] = 1
-                    if self.check_neighbours_alive(x, y) == 3:
-                        self.next_state[x][y] = 1
-                    if self.check_neighbours_alive(x, y) == 4:
-                        self.next_state[x][y] = 1
-                    if self.check_neighbours_alive(x, y) == 5:
-                        self.next_state[x][y] = 0
-                    if self.check_neighbours_alive(x, y) == 6:
-                        self.next_state[x][y] = 1
-                    if self.check_neighbours_alive(x, y) == 7:
-                        self.next_state[x][y] = 1
-                    if self.check_neighbours_alive(x, y) == 8:
-                        self.next_state[x][y] = 1
+                if self.current_state[x][y] == int(self.status[1]):
+                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[0]):
+                        self.next_state[x][y] = int(self.alive_result[0])
+                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[1]):
+                        self.next_state[x][y] = int(self.alive_result[1])
+                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[2]):
+                        self.next_state[x][y] = int(self.alive_result[2])
+                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[3]):
+                        self.next_state[x][y] = int(self.alive_result[3])
+                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[4]):
+                        self.next_state[x][y] = int(self.alive_result[4])
+                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[5]):
+                        self.next_state[x][y] = int(self.alive_result[5])
+                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[6]):
+                        self.next_state[x][y] = int(self.alive_result[6])
+                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[7]):
+                        self.next_state[x][y] = int(self.alive_result[7])
+                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[8]):
+                        self.next_state[x][y] = int(self.alive_result[8])
                 # check for dead cell cases
-                if self.current_state[x][y] == 0:
-                    if self.check_neighbours_alive(x, y) == 0:
-                        self.next_state[x][y] = 0
-                    if self.check_neighbours_alive(x, y) == 1:
-                        self.next_state[x][y] = 0
-                    if self.check_neighbours_alive(x, y) == 2:
-                        self.next_state[x][y] = 0
-                    if self.check_neighbours_alive(x, y) == 3:
-                        self.next_state[x][y] = 1
-                    if self.check_neighbours_alive(x, y) == 4:
-                        self.next_state[x][y] = 1
-                    if self.check_neighbours_alive(x, y) == 5:
-                        self.next_state[x][y] = 1
-                    if self.check_neighbours_alive(x, y) == 6:
-                        self.next_state[x][y] = 0
-                    if self.check_neighbours_alive(x, y) == 7:
-                        self.next_state[x][y] = 0
-                    if self.check_neighbours_alive(x, y) == 8:
-                        self.next_state[x][y] = 0
-                #
-                # # check for alive cell cases
-                # if self.current_state[x][y] == int(self.status[1]):
-                #     if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[0]) or \
-                #             self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[1]):
-                #         self.next_state[x][y] = int(self.alive_result[0])
-                #     if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[2]) or \
-                #             self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[3]):
-                #         self.next_state[x][y] = int(self.alive_result[2])
-                #     if self.check_neighbours_alive(x, y) >= int(self.alive_nr_neighbours[4]):
-                #         self.next_state[x][y] = int(self.alive_result[4])
-                # # check for dead cell cases
-                # if self.current_state[x][y] == int(self.status[0]):
-                #     if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[3]):
-                #         self.next_state[x][y] = int(self.dead_result[3])
-                #     if self.check_neighbours_alive(x, y) < int(self.dead_nr_neighbours[3]) or \
-                #             self.check_neighbours_alive(x, y) > int(self.dead_nr_neighbours[3]):
-                #         self.next_state[x][y] = int(self.dead_result[0])
-
-
-        # for x in range(1, 99):
-        #     for y in range(1, 99):
-        #         # check for alive cell cases
-        #         if self.current_state[x][y] == 1:
-        #             if self.check_neighbours_alive(x, y) == 0 or self.check_neighbours_alive(x, y) == 1:
-        #                 self.next_state[x][y] = 0
-        #             if self.check_neighbours_alive(x, y) == 2 or self.check_neighbours_alive(x, y) == 3:
-        #                 self.next_state[x][y] = 1
-        #             if self.check_neighbours_alive(x, y) >= 4:
-        #                 self.next_state[x][y] = 0
-        #         # check for dead cell cases
-        #         if self.current_state[x][y] == 0:
-        #             if self.check_neighbours_alive(x, y) == 3:
-        #                 self.next_state[x][y] = 1
-        #             if self.check_neighbours_alive(x, y) < 3 or self.check_neighbours_alive(x, y) > 3:
-        #                 self.next_state[x][y] = 0
-
-
-
+                if self.current_state[x][y] == int(self.status[0]):
+                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[0]):
+                        self.next_state[x][y] = int(self.dead_result[0])
+                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[1]):
+                        self.next_state[x][y] = int(self.dead_result[1])
+                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[2]):
+                        self.next_state[x][y] = int(self.dead_result[2])
+                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[3]):
+                        self.next_state[x][y] = int(self.dead_result[3])
+                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[4]):
+                        self.next_state[x][y] = int(self.dead_result[4])
+                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[5]):
+                        self.next_state[x][y] = int(self.dead_result[5])
+                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[6]):
+                        self.next_state[x][y] = int(self.dead_result[6])
+                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[7]):
+                        self.next_state[x][y] = int(self.dead_result[7])
+                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[8]):
+                        self.next_state[x][y] = int(self.dead_result[8])
 
         self.controller.current_frame = self.current_state
         return self.next_state
@@ -198,20 +178,20 @@ class GameOfLifeModel:
     # check how many neighbours of a cell are alive
     def check_neighbours_alive(self, x, y):
         neighbour_count = 0
-        if self.current_state[x - 1][y - 1] == 1:
+        if self.current_state[x - 1][y - 1] == int(self.status[1]):
             neighbour_count += 1
-        if self.current_state[x - 1][y] == 1:
+        if self.current_state[x - 1][y] == int(self.status[1]):
             neighbour_count += 1
-        if self.current_state[x - 1][y + 1] == 1:
+        if self.current_state[x - 1][y + 1] == int(self.status[1]):
             neighbour_count += 1
-        if self.current_state[x][y - 1] == 1:
+        if self.current_state[x][y - 1] == int(self.status[1]):
             neighbour_count += 1
-        if self.current_state[x][y + 1] == 1:
+        if self.current_state[x][y + 1] == int(self.status[1]):
             neighbour_count += 1
-        if self.current_state[x + 1][y - 1] == 1:
+        if self.current_state[x + 1][y - 1] == int(self.status[1]):
             neighbour_count += 1
-        if self.current_state[x + 1][y] == 1:
+        if self.current_state[x + 1][y] == int(self.status[1]):
             neighbour_count += 1
-        if self.current_state[x + 1][y + 1] == 1:
+        if self.current_state[x + 1][y + 1] == int(self.status[1]):
             neighbour_count += 1
         return neighbour_count

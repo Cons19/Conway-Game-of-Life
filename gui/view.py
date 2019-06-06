@@ -11,8 +11,8 @@ class GameOfLifeView:
 
         self.rules = []
         self.rules_options = ["Change Rule"]
-        variable = tk.StringVar(self.window)
-        variable.set(self.rules_options[0])  # default value
+        self.variable = tk.StringVar(self.window)
+        self.variable.set(self.rules_options[0])  # default value
         self.rules = self.controller.rules
         self.rules_options += self.rules
 
@@ -39,7 +39,7 @@ class GameOfLifeView:
         self.default_button.pack(side=TOP, anchor=N, pady=5)
         self.randomize_button = tk.Button(self.right_frame, text="Randomize", command=self.controller.randomize_action)
         self.randomize_button.pack(side=TOP, anchor=N, pady=5)
-        self.rule_set_menu = tk.OptionMenu(self.right_frame, variable, *self.rules_options)
+        self.rule_set_menu = tk.OptionMenu(self.right_frame, self.variable, *self.rules_options, command=self.controller.rules_set_menu_action)
         self.rule_set_menu.pack(side=TOP, anchor=N, pady=5)
         self.scale_button = tk.Scale(self.right_frame, from_=1, to=1000, length=300, orient=tk.HORIZONTAL)
         self.scale_button.pack(side=TOP, anchor=N, pady=5)
@@ -82,23 +82,26 @@ class GameOfLifeView:
         size = 7
         for i in range(1, 99):
             for j in range(1, 99):
+                if self.controller.current_frame[j][i]:  # array of arrays [j - row][i - column]
+                    self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#000000', width=0)
+
                 # Blue colors
-                if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 1:  # array of arrays [j - row][i - column]
-                    self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#B3E5FC', width=0)
-                if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 2:  # array of arrays [j - row][i - column]
-                    self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#81D4FA', width=0)
-                if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 3:  # array of arrays [j - row][i - column]
-                    self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#42A5F5', width=0)
-                if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 4:  # array of arrays [j - row][i - column]
-                    self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#42A5F5', width=0)
-                if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 5:  # array of arrays [j - row][i - column]
-                    self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#1E88E5', width=0)
-                if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 6:  # array of arrays [j - row][i - column]
-                    self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#3F51B5', width=0)
-                if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 7:  # array of arrays [j - row][i - column]
-                    self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#303F9F', width=0)
-                if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 8:  # array of arrays [j - row][i - column]
-                    self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#311B92', width=0)
+                # if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 1:  # array of arrays [j - row][i - column]
+                #     self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#B3E5FC', width=0)
+                # if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 2:  # array of arrays [j - row][i - column]
+                #     self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#81D4FA', width=0)
+                # if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 3:  # array of arrays [j - row][i - column]
+                #     self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#42A5F5', width=0)
+                # if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 4:  # array of arrays [j - row][i - column]
+                #     self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#42A5F5', width=0)
+                # if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 5:  # array of arrays [j - row][i - column]
+                #     self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#1E88E5', width=0)
+                # if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 6:  # array of arrays [j - row][i - column]
+                #     self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#3F51B5', width=0)
+                # if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 7:  # array of arrays [j - row][i - column]
+                #     self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#303F9F', width=0)
+                # if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 8:  # array of arrays [j - row][i - column]
+                #     self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#311B92', width=0)
 
                 # # red and yellow
                 # if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 1:  # array of arrays [j - row][i - column]

@@ -10,6 +10,7 @@ class GameOfLifeController:
 
         self.current_frame = self.model.next_state
         self.next_state = self.model.next_state
+        print(self.next_state)
         self.game_paused = True
         self.task = 1
 
@@ -47,6 +48,13 @@ class GameOfLifeController:
                     self.model.next_state[i][j] = 1
                 else:
                     self.model.next_state[i][j] = 0
+
+    def rules_set_menu_action(self, selection):
+        print('rules_menu')
+        print(selection)
+        self.model.reset_rules()
+        self.model.selected_rule = selection
+        self.model.read_rule_sets_config()
 
     # check how many neighbours of a cell are alive
     def check_neighbours_alive(self, x, y):
