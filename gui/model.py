@@ -8,8 +8,8 @@ class GameOfLifeModel:
         self.controller = controller
         np.set_printoptions(threshold=sys.maxsize)
         # initial states
-        self.current_state = [[0 for x in range(100)] for x in range(100)]
-        self.next_state = [[0 for x in range(100)] for x in range(100)]
+        self.current_state = [[0 for x in range(102)] for x in range(102)]
+        self.next_state = [[0 for x in range(102)] for x in range(102)]
         self.selected_rule = "Rule 1"
         self.selected_pattern = "Glider"
         self.list_rule = []
@@ -34,47 +34,48 @@ class GameOfLifeModel:
         # self.next_state = np.zeros(shape=(30, 30), dtype=int)
         self.clear_screen()
 
-        for x in range(1, 99):
-            for y in range(1, 99):
+        for x in range(1, 101):
+            for y in range(1, 101):
+                self.neighbours_alive = self.check_neighbours_alive(x, y)
                 # check for alive cell cases
                 if self.current_state[x][y] == int(self.status[1]):
-                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[0]):
+                    if self.neighbours_alive == int(self.alive_nr_neighbours[0]):
                         self.next_state[x][y] = int(self.alive_result[0])
-                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[1]):
+                    if self.neighbours_alive == int(self.alive_nr_neighbours[1]):
                         self.next_state[x][y] = int(self.alive_result[1])
-                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[2]):
+                    if self.neighbours_alive == int(self.alive_nr_neighbours[2]):
                         self.next_state[x][y] = int(self.alive_result[2])
-                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[3]):
+                    if self.neighbours_alive == int(self.alive_nr_neighbours[3]):
                         self.next_state[x][y] = int(self.alive_result[3])
-                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[4]):
+                    if self.neighbours_alive == int(self.alive_nr_neighbours[4]):
                         self.next_state[x][y] = int(self.alive_result[4])
-                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[5]):
+                    if self.neighbours_alive == int(self.alive_nr_neighbours[5]):
                         self.next_state[x][y] = int(self.alive_result[5])
-                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[6]):
+                    if self.neighbours_alive == int(self.alive_nr_neighbours[6]):
                         self.next_state[x][y] = int(self.alive_result[6])
-                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[7]):
+                    if self.neighbours_alive == int(self.alive_nr_neighbours[7]):
                         self.next_state[x][y] = int(self.alive_result[7])
-                    if self.check_neighbours_alive(x, y) == int(self.alive_nr_neighbours[8]):
+                    if self.neighbours_alive == int(self.alive_nr_neighbours[8]):
                         self.next_state[x][y] = int(self.alive_result[8])
                 # check for dead cell cases
                 if self.current_state[x][y] == int(self.status[0]):
-                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[0]):
+                    if self.neighbours_alive == int(self.dead_nr_neighbours[0]):
                         self.next_state[x][y] = int(self.dead_result[0])
-                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[1]):
+                    if self.neighbours_alive == int(self.dead_nr_neighbours[1]):
                         self.next_state[x][y] = int(self.dead_result[1])
-                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[2]):
+                    if self.neighbours_alive == int(self.dead_nr_neighbours[2]):
                         self.next_state[x][y] = int(self.dead_result[2])
-                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[3]):
+                    if self.neighbours_alive == int(self.dead_nr_neighbours[3]):
                         self.next_state[x][y] = int(self.dead_result[3])
-                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[4]):
+                    if self.neighbours_alive == int(self.dead_nr_neighbours[4]):
                         self.next_state[x][y] = int(self.dead_result[4])
-                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[5]):
+                    if self.neighbours_alive == int(self.dead_nr_neighbours[5]):
                         self.next_state[x][y] = int(self.dead_result[5])
-                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[6]):
+                    if self.neighbours_alive == int(self.dead_nr_neighbours[6]):
                         self.next_state[x][y] = int(self.dead_result[6])
-                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[7]):
+                    if self.neighbours_alive == int(self.dead_nr_neighbours[7]):
                         self.next_state[x][y] = int(self.dead_result[7])
-                    if self.check_neighbours_alive(x, y) == int(self.dead_nr_neighbours[8]):
+                    if self.neighbours_alive == int(self.dead_nr_neighbours[8]):
                         self.next_state[x][y] = int(self.dead_result[8])
 
         self.controller.current_frame = self.current_state
@@ -199,4 +200,4 @@ class GameOfLifeModel:
             self.next_state[50][54] = 1
 
     def clear_screen(self):
-        self.next_state = [[0 for x in range(100)] for x in range(100)]
+        self.next_state = [[0 for x in range(102)] for x in range(102)]

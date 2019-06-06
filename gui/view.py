@@ -68,15 +68,24 @@ class GameOfLifeView:
 
     def draw_next_frame(self):
         # clear canvas
-        self.canvas.create_rectangle(0, 0, 700, 700, fill='white', width=1)
+        # self.canvas.create_rectangle(0, 0, 700, 700, fill='white', width=1)
+        # self.canvas.delete(myrect)  # Deletes the rectangle
+        # self.canvas.delete()  # Deletes the rectangle
+        self.canvas.delete(ALL)
+        # self.canvas = tk.Canvas(self.left_frame, bg='#dddddd', highlightthickness=2, width=700)
+        # self.canvas.pack(fill=tk.BOTH, expand=True)
         # make squares
         size = 7
         # [a for a in list_a for b in list_b if a==b]
-        [self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#000000',
-                                      width=0)
-         for i in range(1, 99)
-         for j in range(1, 99)
-         if self.controller.current_frame[j][i]]
+
+        # A(x,y), B(x,y)
+        # [self.canvas.create_rectangle(((i-1) * size) + 1, (j-1) * size) + 1, (i-1) * size + size, ((j-1) * size + size, fill='#000000', width=0)
+        [self.canvas.create_rectangle(((i-1) * size) + 1, ((j-1) * size) + 1, (i-1) * size + size, (j-1) * size + size, fill='#000000', width=0)
+        # [self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#000000', width=0)
+            for i in range(1, 101)
+            for j in range(1, 101)
+            if self.controller.current_frame[j][i]]
+
 
         # width = self.canvas.winfo_width()  # Get current width of canvas
         # height = self.canvas.winfo_height()  # Get current height of canvas
@@ -106,7 +115,7 @@ class GameOfLifeView:
 
 
 
-        # # make squares
+        # make squares
         # size = 7
         # for i in range(1, 99):
         #     for j in range(1, 99):
