@@ -13,7 +13,7 @@ class GameOfLifeController:
         self.next_state = self.model.next_state
         self.game_paused = True
         self.task = 1
-
+        # de la mine
         self.view.window.mainloop()
 
     def start_action(self):
@@ -61,8 +61,10 @@ class GameOfLifeController:
         print(selection)
         self.model.reset_patterns()
         self.model.selected_pattern = selection
-        self.model.read_pattern_sets_config()  # read_pattern_sets_config(selection)
+        self.model.read_pattern_sets_config()
         self.next_frame_action()
+
+
 
     # check how many neighbours of a cell are alive
     def check_neighbours_alive(self, x, y):
