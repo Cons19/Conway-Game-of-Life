@@ -68,10 +68,18 @@ class GameOfLifeView:
 
     def draw_next_frame(self):
         # clear canvas
-        # self.canvas.create_rectangle(0, 0, 1000, 1000, fill='white', width=0)
         self.canvas.create_rectangle(0, 0, 700, 700, fill='white', width=1)
-        width = self.canvas.winfo_width()  # Get current width of canvas
-        height = self.canvas.winfo_height()  # Get current height of canvas
+        # make squares
+        size = 7
+        # [a for a in list_a for b in list_b if a==b]
+        [self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#000000',
+                                      width=0)
+         for i in range(1, 99)
+         for j in range(1, 99)
+         if self.controller.current_frame[j][i]]
+
+        # width = self.canvas.winfo_width()  # Get current width of canvas
+        # height = self.canvas.winfo_height()  # Get current height of canvas
 
         # # make 100+100 = 200 lines
         # for i in range(0, width, 10):
@@ -87,12 +95,23 @@ class GameOfLifeView:
         #             # self.canvas.create_rectangle((i * 10)+1, (j * 10)+1, i * 10 + 10, j * 10 + 10, fill='green', width=0)
         #             self.canvas.create_rectangle((i * size)+1, (j * size)+1, i * size + size, j * size + size, fill='green', width=0)
 
-        # make squares
-        size = 7
-        for i in range(1, 99):
-            for j in range(1, 99):
-                if self.controller.current_frame[j][i]:  # array of arrays [j - row][i - column]
-                    self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#000000', width=0)
+        # # make squares
+        # size = 7
+        # for i in range(1, 99):
+        #     for j in range(1, 99):
+        #         if self.controller.current_frame[j][i]:  # array of arrays [j - row][i - column]
+        #             self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#000000', width=0)
+        #
+        # [a for a in list_a for b in list_b if a==b]
+
+
+
+        # # make squares
+        # size = 7
+        # for i in range(1, 99):
+        #     for j in range(1, 99):
+        #         if self.controller.current_frame[j][i]:  # array of arrays [j - row][i - column]
+        #             self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#000000', width=0)
 
                 # Blue colors
                 # if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 1:  # array of arrays [j - row][i - column]

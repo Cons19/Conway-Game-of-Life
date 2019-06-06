@@ -199,4 +199,4 @@ class GameOfLifeModel:
             self.next_state[50][54] = 1
 
     def clear_screen(self):
-        self.next_state = [[0 for x in range(100)] for x in range(100)]  # extra processing????
+        self.next_state = [[0 for x in range(100)] for x in range(100)]
