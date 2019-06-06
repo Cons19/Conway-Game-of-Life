@@ -68,17 +68,43 @@ class GameOfLifeView:
 
     def draw_next_frame(self):
         # clear canvas
-        # self.canvas.create_rectangle(0, 0, 700, 700, fill='white', width=1)
+
         # self.canvas.delete(myrect)  # Deletes the rectangle
         # self.canvas.delete()  # Deletes the rectangle
         self.canvas.delete(ALL)
+        self.canvas.create_rectangle(0, 0, 700, 700, fill='white', width=1)
         # self.canvas = tk.Canvas(self.left_frame, bg='#dddddd', highlightthickness=2, width=700)
         # self.canvas.pack(fill=tk.BOTH, expand=True)
         # make squares
         size = 7
-        # [a for a in list_a for b in list_b if a==b]
+
+        # make 100+100 = 200 lines
+        # draw horizontal lines
+        for y in range(0, 700, 7):
+            self.canvas.create_line(0, y, 700, y, width=1, fill='#C0C0C0')
+        # draw vertical lines
+        for x in range(0, 700, 7):
+            self.canvas.create_line(x, 0, x, 700, width=1, fill='#C0C0C0')
+
+
+        # self.canvas.create_line(100, 100, 500, 700, width=1, fill='#C0C0C0')
+
+        # # make 100+100 = 200 lines
+        # for i in range(0, 700, 7):
+        #     for j in range(0, 700, 7):
+        #         self.canvas.create_rectangle(i, j, 700, j, width=1, fill='#C0C0C0')
+        #         self.canvas.create_rectangle(i, 0, i, 700, width=1, fill='#C0C0C0')
+
+
+
+        # # make 100+100 = 200 lines
+        # for i in range(0, 700, 7):
+        #     for j in range(0, 700, 7):
+        #         self.canvas.create_line(i, j, 700, j, width=1, fill='#C0C0C0')
+        #         self.canvas.create_line(i, 0, i, 700, width=1, fill='#C0C0C0')
 
         # A(x,y), B(x,y)
+        # [a for a in list_a for b in list_b if a==b]
         # [self.canvas.create_rectangle(((i-1) * size) + 1, (j-1) * size) + 1, (i-1) * size + size, ((j-1) * size + size, fill='#000000', width=0)
         [self.canvas.create_rectangle(((i-1) * size) + 1, ((j-1) * size) + 1, (i-1) * size + size, (j-1) * size + size, fill='#000000', width=0)
         # [self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#000000', width=0)
