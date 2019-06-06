@@ -1,15 +1,13 @@
 import json
-import sys
-import numpy as np
 
 
 class GameOfLifeModel:
     def __init__(self, controller):
         self.controller = controller
-        np.set_printoptions(threshold=sys.maxsize)
         # initial states
         self.current_state = [[0 for x in range(102)] for x in range(102)]
         self.next_state = [[0 for x in range(102)] for x in range(102)]
+        # TODO: if we have time - convert json object to python lists with lists
         self.selected_rule = "Rule 1"
         self.selected_pattern = "Glider"
         self.list_rule = []
@@ -31,7 +29,6 @@ class GameOfLifeModel:
     def next(self):
         """Progress one step and then return the current state."""
         self.current_state = self.next_state
-        # self.next_state = np.zeros(shape=(30, 30), dtype=int)
         self.clear_screen()
 
         for x in range(1, 101):
@@ -77,7 +74,6 @@ class GameOfLifeModel:
                         self.next_state[x][y] = int(self.dead_result[7])
                     if self.neighbours_alive == int(self.dead_nr_neighbours[8]):
                         self.next_state[x][y] = int(self.dead_result[8])
-
         self.controller.current_frame = self.current_state
         return self.next_state
 
@@ -103,11 +99,11 @@ class GameOfLifeModel:
         return neighbour_count
 
     def read_json_files(self):
-        with open('../patterns.json') as patterns_file:
+        with open('config_files/patterns.json') as patterns_file:
             self.pattern_sets = json.load(patterns_file)
         self.read_pattern_sets_config()
         self.pattern(self.selected_pattern)
-        with open('../rule_sets.json') as rules_file:
+        with open('config_files/rule_sets.json') as rules_file:
             self.rule_sets = json.load(rules_file)
         self.read_rule_sets_config()
 

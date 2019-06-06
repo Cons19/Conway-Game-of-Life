@@ -8,6 +8,7 @@ class GameOfLifeView:
         self.window = tk.Tk()
         self.window.title("C&P's Game Of Life")
         self.window.geometry("1000x705")
+        # change
 
         self.rules = []
         self.rules_options = ["Change Rule"]
@@ -44,8 +45,6 @@ class GameOfLifeView:
         self.next_frame_button.pack(side=TOP, anchor=N, pady=5)
         self.randomize_button = tk.Button(self.right_frame, text="Randomize", command=self.controller.randomize_action)
         self.randomize_button.pack(side=TOP, anchor=N, pady=5)
-        # self.default_button = tk.Button(self.right_frame, text="Default", command=self.controller.default_button)
-        # self.default_button.pack(side=TOP, anchor=N, pady=5)
         self.pattern_set_menu = tk.OptionMenu(self.right_frame, self.default_pattern_text, *self.patterns_options, command=self.controller.patterns_set_menu_action)
         self.pattern_set_menu.pack(side=TOP, anchor=N, pady=5)
         self.rule_set_menu = tk.OptionMenu(self.right_frame, self.default_rule_text, *self.rules_options, command=self.controller.rules_set_menu_action)
@@ -69,15 +68,10 @@ class GameOfLifeView:
     def draw_next_frame(self):
         # clear canvas
 
-        # self.canvas.delete(myrect)  # Deletes the rectangle
-        # self.canvas.delete()  # Deletes the rectangle
-        self.canvas.delete(ALL)
+        self.canvas.delete(ALL) # delete all objects from canvas
         self.canvas.create_rectangle(0, 0, 700, 700, fill='white', width=1)
-        # self.canvas = tk.Canvas(self.left_frame, bg='#dddddd', highlightthickness=2, width=700)
-        # self.canvas.pack(fill=tk.BOTH, expand=True)
-        # make squares
-        size = 7
 
+        size = 7
         # make 100+100 = 200 lines
         # draw horizontal lines
         for y in range(0, 700, 7):
@@ -87,59 +81,11 @@ class GameOfLifeView:
             self.canvas.create_line(x, 0, x, 700, width=1, fill='#C0C0C0')
 
 
-        # self.canvas.create_line(100, 100, 500, 700, width=1, fill='#C0C0C0')
-
-        # # make 100+100 = 200 lines
-        # for i in range(0, 700, 7):
-        #     for j in range(0, 700, 7):
-        #         self.canvas.create_rectangle(i, j, 700, j, width=1, fill='#C0C0C0')
-        #         self.canvas.create_rectangle(i, 0, i, 700, width=1, fill='#C0C0C0')
-
-
-
-        # # make 100+100 = 200 lines
-        # for i in range(0, 700, 7):
-        #     for j in range(0, 700, 7):
-        #         self.canvas.create_line(i, j, 700, j, width=1, fill='#C0C0C0')
-        #         self.canvas.create_line(i, 0, i, 700, width=1, fill='#C0C0C0')
-
-        # A(x,y), B(x,y)
-        # [a for a in list_a for b in list_b if a==b]
-        # [self.canvas.create_rectangle(((i-1) * size) + 1, (j-1) * size) + 1, (i-1) * size + size, ((j-1) * size + size, fill='#000000', width=0)
+        # make squares A(x,y), B(x,y)
         [self.canvas.create_rectangle(((i-1) * size) + 1, ((j-1) * size) + 1, (i-1) * size + size, (j-1) * size + size, fill='#000000', width=0)
-        # [self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#000000', width=0)
             for i in range(1, 101)
             for j in range(1, 101)
             if self.controller.current_frame[j][i]]
-
-
-        # width = self.canvas.winfo_width()  # Get current width of canvas
-        # height = self.canvas.winfo_height()  # Get current height of canvas
-
-        # # make 100+100 = 200 lines
-        # for i in range(0, width, 10):
-        #    for j in range(0, height, 10):
-        #        self.canvas.create_line(i, j, width, j, width=1, fill='#C0C0C0')
-        #        self.canvas.create_line(i, 0, i, height, width=1, fill='#C0C0C0')
-
-        # # make squares
-        # size = 7
-        # for i in range(0, 100):
-        #     for j in range(0, 100):
-        #         if self.controller.current_frame[j][i]:  # array of arrays [j - row][i - column]
-        #             # self.canvas.create_rectangle((i * 10)+1, (j * 10)+1, i * 10 + 10, j * 10 + 10, fill='green', width=0)
-        #             self.canvas.create_rectangle((i * size)+1, (j * size)+1, i * size + size, j * size + size, fill='green', width=0)
-
-        # # make squares
-        # size = 7
-        # for i in range(1, 99):
-        #     for j in range(1, 99):
-        #         if self.controller.current_frame[j][i]:  # array of arrays [j - row][i - column]
-        #             self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#000000', width=0)
-        #
-        # [a for a in list_a for b in list_b if a==b]
-
-
 
         # make squares
         # size = 7
@@ -201,7 +147,6 @@ class GameOfLifeView:
                 #     self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#006442', width=0)
                 # if self.controller.current_frame[j][i] and self.controller.check_neighbours_alive(i, j) == 8:  # array of arrays [j - row][i - column]
                 #     self.canvas.create_rectangle((i * size) + 1, (j * size) + 1, i * size + size, j * size + size, fill='#006442', width=0)
-
 
     def round_number(self, number):
         return int(number/10)*10

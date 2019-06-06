@@ -1,4 +1,4 @@
-import gui.controller
+import mvc.controller
 
 if __name__ == "__main__":
-    gui.controller.GameOfLifeController()
+    mvc.controller.GameOfLifeController()
