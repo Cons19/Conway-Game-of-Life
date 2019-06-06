@@ -64,25 +64,14 @@ class GameOfLifeController:
         self.model.read_pattern_sets_config()
         self.next_frame_action()
 
-
-
     # check how many neighbours of a cell are alive
     def check_neighbours_alive(self, x, y):
-        neighbour_count = 0
-        if self.model.current_state[x - 1][y - 1] == 1:
-            neighbour_count += 1
-        if self.model.current_state[x - 1][y] == 1:
-            neighbour_count += 1
-        if self.model.current_state[x - 1][y + 1] == 1:
-            neighbour_count += 1
-        if self.model.current_state[x][y - 1] == 1:
-            neighbour_count += 1
-        if self.model.current_state[x][y + 1] == 1:
-            neighbour_count += 1
-        if self.model.current_state[x + 1][y - 1] == 1:
-            neighbour_count += 1
-        if self.model.current_state[x + 1][y] == 1:
-            neighbour_count += 1
-        if self.model.current_state[x + 1][y + 1] == 1:
-            neighbour_count += 1
-        return neighbour_count
+        return self.model.next_state[x - 1][y - 1] + self.model.next_state[x - 1][y] + self.model.next_state[x - 1][y + 1] + \
+               self.model.next_state[x][y - 1] + self.model.next_state[x][y + 1] + \
+               self.model.next_state[x + 1][y - 1] + self.model.next_state[x + 1][y] + self.model.next_state[x + 1][y + 1]
+
+    # # check how many neighbours of a cell are alive
+    # def check_neighbours_alive(self, x, y):
+    #     return self.model.current_state[x - 1][y - 1] + self.model.current_state[x - 1][y] + self.model.current_state[x - 1][y + 1] + \
+    #            self.model.current_state[x][y - 1] + self.model.current_state[x][y + 1] + \
+    #            self.model.current_state[x + 1][y - 1] + self.model.current_state[x + 1][y] + self.model.current_state[x + 1][y + 1]

@@ -79,14 +79,9 @@ class GameOfLifeModel:
 
     # check how many neighbours of a cell are alive
     def check_neighbours_alive(self, x, y):
-        return self.current_state[x - 1][y - 1] + \
-               self.current_state[x - 1][y] + \
-               self.current_state[x - 1][y + 1] + \
-               self.current_state[x][y - 1] + \
-               self.current_state[x][y + 1] + \
-               self.current_state[x + 1][y - 1] + \
-               self.current_state[x + 1][y] + \
-               self.current_state[x + 1][y + 1]
+        return self.current_state[x - 1][y - 1] + self.current_state[x - 1][y] + self.current_state[x - 1][y + 1] + \
+               self.current_state[x][y - 1] +                                    self.current_state[x][y + 1] + \
+               self.current_state[x + 1][y - 1] + self.current_state[x + 1][y] + self.current_state[x + 1][y + 1]
 
 
     # # check how many neighbours of a cell are alive
