@@ -7,10 +7,10 @@ class GameOfLifeController:
         self.model = mvc.model.GameOfLifeModel(self)
         self.rules = self.model.rules
         self.patterns = self.model.patterns
+        self.next_state = self.model.next_state  # before initializing view
+        self.user_changes = 0
         self.view = mvc.view.GameOfLifeView(self)
 
-        self.next_state = self.model.next_state
-        self.user_changes = 0
         self.game_paused = True
         self.task = 1
         self.view.window.mainloop()
@@ -63,6 +63,9 @@ class GameOfLifeController:
         self.model.reset_patterns()
         self.model.selected_pattern = selection
         self.model.read_pattern_sets_config()
+
+        self.next_state = self.model.next_state # sync values from models with controller
+        self.user_changes = 1
         self.next_frame_action()
 
     # check how many neighbours of a cell are alive

@@ -51,6 +51,7 @@ class GameOfLifeView:
         self.scale_button = tk.Scale(self.right_frame, from_=1, to=1000, length=300, orient=tk.HORIZONTAL)
         self.scale_button.pack(side=TOP, anchor=N, pady=5)
 
+        self.draw_next_frame()
         # options = [
         #     "Random",
         #     "Rand 1",

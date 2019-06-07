@@ -103,6 +103,8 @@ class GameOfLifeModel:
         self.pattern(self.selected_pattern)
 
     def read_rule_sets_config(self):
+        # TODO: simplify the functionality if possible
+        # TODO: use dictionary for neighbours and results
         print("model - read_rule_sets_config")
         print(self.selected_rule)
         for i in self.rule_sets:
