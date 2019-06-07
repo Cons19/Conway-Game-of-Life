@@ -9,7 +9,8 @@ class GameOfLifeController:
         self.patterns = self.model.patterns
         self.view = mvc.view.GameOfLifeView(self)
 
-        self.current_frame = self.model.next_state
+        self.current_frame = self.model.next_state # ???
+        self.current_state = self.model.current_state
         self.next_state = self.model.next_state
         self.game_paused = True
         self.task = 1
