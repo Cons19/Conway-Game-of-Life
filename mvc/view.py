@@ -50,6 +50,11 @@ class GameOfLifeView:
         self.rule_set_menu.pack(side=TOP, anchor=N, pady=5)
         self.scale_button = tk.Scale(self.right_frame, from_=1, to=1000, length=300, orient=tk.HORIZONTAL)
         self.scale_button.pack(side=TOP, anchor=N, pady=5)
+        self.clear_button = tk.Button(self.right_frame, text="Clear", command=self.controller.clear_screen_action)
+        self.clear_button.pack(side=TOP, anchor=N, pady=5)
+        self.quit_button = tk.Button(self.right_frame, text="Quit", command=self.controller.quit_action)
+        self.quit_button.pack(side=TOP, anchor=N, pady=5)
+
 
         self.draw_next_frame()
         # options = [

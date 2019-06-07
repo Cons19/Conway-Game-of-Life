@@ -74,3 +74,10 @@ class GameOfLifeController:
                self.model.next_state[x][y - 1] + self.model.next_state[x][y + 1] + \
                self.model.next_state[x + 1][y - 1] + self.model.next_state[x + 1][y] + self.model.next_state[x + 1][y + 1]
 
+    def clear_screen_action(self):
+        self.next_state = self.model.clear_screen()
+        self.user_changes = 1
+        self.next_frame_action()
+
+    def quit_action(self):
+        self.view.window.destroy()
