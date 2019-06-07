@@ -30,7 +30,7 @@ class GameOfLifeModel:
         """Progress one step and then return the current state."""
         print('- next()')
         self.current_state = self.next_state
-        self.clear_screen()
+        self.next_state = self.clear_screen()
 
         for x in range(1, 101):
             for y in range(1, 101):
@@ -78,6 +78,7 @@ class GameOfLifeModel:
                         self.next_state[x][y] = int(self.dead_result[8])
         return self.next_state
 
+    # TODO: send a list as parameter, to make it usable in controller with next_state
     # check how many neighbours of a cell are alive
     def check_neighbours_alive(self, x, y):
         return self.current_state[x - 1][y - 1] + self.current_state[x - 1][y] + self.current_state[x - 1][y + 1] + \
@@ -143,7 +144,7 @@ class GameOfLifeModel:
         self.alive_result = []
 
     def pattern(self, name):
-        self.clear_screen()
+        self.next_state = self.clear_screen()
         if name == self.patterns[0]:
             self.next_state[49][50] = 1
             self.next_state[50][51] = 1
@@ -184,4 +185,4 @@ class GameOfLifeModel:
             self.next_state[50][54] = 1
 
     def clear_screen(self):
-        self.next_state = [[0 for x in range(102)] for x in range(102)]
+        return [[0 for x in range(102)] for x in range(102)]

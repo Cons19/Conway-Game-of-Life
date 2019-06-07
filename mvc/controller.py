@@ -2,14 +2,16 @@ import mvc.model
 import mvc.view
 import random
 
+
 class GameOfLifeController:
-    def __init__(self):
-        self.model = mvc.model.GameOfLifeModel(self)
+    def __init__(self):  #
+        """ initialize variables """
+        self.model = mvc.model.GameOfLifeModel(self)  # make an instance of the model class
         self.rules = self.model.rules
         self.patterns = self.model.patterns
         self.next_state = self.model.next_state  # before initializing view
         self.user_changes = 0
-        self.view = mvc.view.GameOfLifeView(self)
+        self.view = mvc.view.GameOfLifeView(self)  # make an instance of the view class
 
         self.game_paused = True
         self.task = 1
@@ -75,9 +77,13 @@ class GameOfLifeController:
                self.model.next_state[x + 1][y - 1] + self.model.next_state[x + 1][y] + self.model.next_state[x + 1][y + 1]
 
     def clear_screen_action(self):
+
+        # self.next_state = [[0 for x in range(102)] for x in range(102)]
+
         self.next_state = self.model.clear_screen()
-        self.user_changes = 1
+        # self.user_changes = 1
         self.next_frame_action()
 
     def quit_action(self):
         self.view.window.destroy()
+
