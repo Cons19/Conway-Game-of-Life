@@ -9,19 +9,16 @@ class GameOfLifeController:
         self.patterns = self.model.patterns
         self.view = mvc.view.GameOfLifeView(self)
 
-        self.current_frame = self.model.next_state # ???
-        self.current_state = self.model.current_state
         self.next_state = self.model.next_state
+        self.user_changes = 0
         self.game_paused = True
         self.task = 1
-        # de la mine, 111 1
         self.view.window.mainloop()
 
     def start_action(self):
         print('start_action')
-        self.model.next()
+        self.next_state = self.model.next()
         self.view.draw_next_frame()
-        # self.begin_id = self.view.window.after(1000, self.start_action)
         self.task = self.view.window.after(self.view.scale_button.get(), self.start_action)
         self.view.pause_button["state"] = "normal"
         self.view.start_button["state"] = "disabled"
@@ -34,7 +31,9 @@ class GameOfLifeController:
 
     def next_frame_action(self):
         print('next_frame_action')
-        self.model.next()
+        self.model.next_state = self.next_state
+        if self.user_changes == 0:  # process the next frame only if the user didn't made changes on the frame
+            self.next_state = self.model.next()
         self.view.draw_next_frame()
 
     def default_button(self):
@@ -42,6 +41,7 @@ class GameOfLifeController:
 
     def randomize_action(self):
         print('randomize_action')
+        # TODO: use comprehension list
         # self.model.next_state = [[random.uniform(0, 1) for x in range(100)] for x in range(100)]
         for i in range(0, 100):
             for j in range(0, 100):
@@ -71,8 +71,3 @@ class GameOfLifeController:
                self.model.next_state[x][y - 1] + self.model.next_state[x][y + 1] + \
                self.model.next_state[x + 1][y - 1] + self.model.next_state[x + 1][y] + self.model.next_state[x + 1][y + 1]
 
-    # # check how many neighbours of a cell are alive
-    # def check_neighbours_alive(self, x, y):
-    #     return self.model.current_state[x - 1][y - 1] + self.model.current_state[x - 1][y] + self.model.current_state[x - 1][y + 1] + \
-    #            self.model.current_state[x][y - 1] + self.model.current_state[x][y + 1] + \
-    #            self.model.current_state[x + 1][y - 1] + self.model.current_state[x + 1][y] + self.model.current_state[x + 1][y + 1]

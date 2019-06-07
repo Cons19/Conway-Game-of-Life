@@ -28,12 +28,14 @@ class GameOfLifeModel:
 
     def next(self):
         """Progress one step and then return the current state."""
+        print('- next()')
         self.current_state = self.next_state
         self.clear_screen()
 
         for x in range(1, 101):
             for y in range(1, 101):
                 self.neighbours_alive = self.check_neighbours_alive(x, y)
+                # TODO: simplify with for
                 # check for alive cell cases
                 if self.current_state[x][y] == int(self.status[1]):
                     if self.neighbours_alive == int(self.alive_nr_neighbours[0]):
@@ -74,7 +76,6 @@ class GameOfLifeModel:
                         self.next_state[x][y] = int(self.dead_result[7])
                     if self.neighbours_alive == int(self.dead_nr_neighbours[8]):
                         self.next_state[x][y] = int(self.dead_result[8])
-        self.controller.current_frame = self.current_state
         return self.next_state
 
     # check how many neighbours of a cell are alive
@@ -82,28 +83,6 @@ class GameOfLifeModel:
         return self.current_state[x - 1][y - 1] + self.current_state[x - 1][y] + self.current_state[x - 1][y + 1] + \
                self.current_state[x][y - 1] +                                    self.current_state[x][y + 1] + \
                self.current_state[x + 1][y - 1] + self.current_state[x + 1][y] + self.current_state[x + 1][y + 1]
-
-
-    # # check how many neighbours of a cell are alive
-    # def check_neighbours_alive(self, x, y):
-    #     neighbour_count = 0
-    #     if self.current_state[x - 1][y - 1] == int(self.status[1]):
-    #         neighbour_count += 1
-    #     if self.current_state[x - 1][y] == int(self.status[1]):
-    #         neighbour_count += 1
-    #     if self.current_state[x - 1][y + 1] == int(self.status[1]):
-    #         neighbour_count += 1
-    #     if self.current_state[x][y - 1] == int(self.status[1]):
-    #         neighbour_count += 1
-    #     if self.current_state[x][y + 1] == int(self.status[1]):
-    #         neighbour_count += 1
-    #     if self.current_state[x + 1][y - 1] == int(self.status[1]):
-    #         neighbour_count += 1
-    #     if self.current_state[x + 1][y] == int(self.status[1]):
-    #         neighbour_count += 1
-    #     if self.current_state[x + 1][y + 1] == int(self.status[1]):
-    #         neighbour_count += 1
-    #     return neighbour_count
 
     def read_json_files(self):
         with open('config_files/patterns.json') as patterns_file:
