@@ -95,14 +95,14 @@ class GameOfLifeView:
                 self.neighbours_alive = self.controller.check_neighbours_alive(i, j)
                 if self.controller.next_state[j][i]:  # array of arrays [j - row][i - column]
                     self.canvas.create_rectangle(((i-1) * size) + 1, ((j-1) * size) + 1, (i-1) * size + size, (j-1) * size + size, fill='#000000', width=0)
-        self.controller.user_changes = 0
+        self.controller.user_changes = False
 
     def round_number(self, number):
         # return int(number/10)*10
         return int(number/7)*7
 
     def draw_square(self, event):
-        self.controller.user_changes = 1
+        self.controller.user_changes = True
         size = 7
         for i in range(1, 101):
             for j in range(1, 101):
