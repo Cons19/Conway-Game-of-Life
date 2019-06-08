@@ -49,6 +49,10 @@ class TestModel(unittest.TestCase):
         self.assertEqual(self.next_state[50][51], 1)
         self.assertEqual(self.next_state[51][50], 1)
         self.assertEqual(self.next_state[51][51], 1)
+        self.assertNotEqual(self.next_state[49][50], 1)
+        self.assertNotEqual(self.next_state[51][49], 1)
+        self.assertEqual(self.next_state[49][50], 0)
+        self.assertEqual(self.next_state[51][49], 0)
 
 
 if __name__ == '__main__':
