@@ -28,7 +28,6 @@ class GameOfLifeModel:
 
     def next(self):
         """Progress one step and then return the current state."""
-        print('- next()')
         self.current_state = self.next_state
         self.next_state = self.clear_screen()
 
@@ -95,7 +94,7 @@ class GameOfLifeModel:
         self.read_rule_sets_config()
 
     def read_pattern_sets_config(self):
-        print("model - read_pattern_sets_config")
+        # print("model - read_pattern_sets_config")
         for i in self.pattern_sets:
             self.patterns_list.append(i)
         for d in self.patterns_list:
@@ -106,25 +105,25 @@ class GameOfLifeModel:
     def read_rule_sets_config(self):
         # TODO: simplify the functionality if possible
         # TODO: use dictionary for neighbours and results
-        print("model - read_rule_sets_config")
-        print(self.selected_rule)
+        # print("model - read_rule_sets_config")
+        # print(self.selected_rule)
         for i in self.rule_sets:
             self.rules.append(i)
             if i == self.selected_rule:
-                print(self.rule_sets[i])
+                # print(self.rule_sets[i])
                 self.list_rule.append(self.rule_sets[i])
                 for j in self.rule_sets[i]:
                     self.status.append(j)
                     self.list_states.append(self.rule_sets[i][j])
-        print(self.status[1])
-        print(self.rule_sets[self.rules[0]])
+        # print(self.status[1])
+        # print(self.rule_sets[self.rules[0]])
         for d in self.list_states[0]:
             for nr_neighbours, result in d.items():
                 self.dead_nr_neighbours.append(nr_neighbours)
                 self.dead_result.append(result)
-        print("list_states")
-        print(self.list_states)
-        print("--")
+        # print("list_states")
+        # print(self.list_states)
+        # print("--")
         for d in self.list_states[1]:
             for nr_neighbours, result in d.items():
                 self.alive_nr_neighbours.append(nr_neighbours)
