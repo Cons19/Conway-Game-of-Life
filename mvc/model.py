@@ -4,9 +4,11 @@ import json
 class GameOfLifeModel:
     def __init__(self, controller):
         self.controller = controller
+
         # initial states
         self.current_state = [[0 for x in range(102)] for x in range(102)]
         self.next_state = [[0 for x in range(102)] for x in range(102)]
+
         # TODO: if we have time - convert json object to python lists with lists
         # initial values of dropdawns
         self.selected_rule = "Rule 1"
@@ -150,7 +152,6 @@ class GameOfLifeModel:
 
     def pattern(self, name):
         self.next_state = self.clear_screen()   # set values to 0
-
         if name == self.patterns[0]:  # verify if the name received is the same as the one from json
             # apply the pattern
             self.next_state[49][50] = 1

@@ -28,10 +28,8 @@ class GameOfLifeView:
         # Frame - widget, similar to a container, used to organize the layout
         self.body_frame = Frame(self.window)
         self.body_frame.pack(side=TOP, fill=BOTH, expand=YES)
-
         self.left_frame = Frame(self.body_frame, background="#cccccc", borderwidth=1, width=700)
         self.left_frame.pack(side=LEFT, fill=BOTH, expand=YES)
-
         self.right_frame = Frame(self.body_frame, background="#eeeeee", borderwidth=1, width=300)
         self.right_frame.pack(side=RIGHT, fill=BOTH, expand=YES)
 

@@ -10,8 +10,10 @@ from mvc.controller import GameOfLifeController
 class TestModel(unittest.TestCase):
     # called before each test method, to prepare it
     def setUp(self):
-        self.model = GameOfLifeModel(GameOfLifeController) # make an instance of the model class, add the controller as a parameter
+        # make an instance of the model class, add the controller as a parameter
+        self.model = GameOfLifeModel(GameOfLifeController)
         self.current_state = self.model.current_state  # get values from model
+
         # set values of Glider pattern
         self.current_state[49][50] = 1
         self.current_state[50][51] = 1
@@ -60,6 +62,6 @@ class TestModel(unittest.TestCase):
         self.assertEqual(self.next_state[51][49], 0)
 
 
-if __name__ == '__main__':  # only gets inside if the file is run directly
+if __name__ == '__main__':  # only gets inside, if the file is run directly
     unittest.main()         # run the tests
 
