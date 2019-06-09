@@ -67,7 +67,7 @@ class GameOfLifeController:
         self.model.selected_pattern = selection  # assign value from dropdown
         self.model.read_pattern_sets_config()
 
-        self.next_state = self.model.next_state  # sync values from models with controller
+        self.next_state = self.model.next_state  # get values from model
         self.user_changes = True  # notify that the user changed pattern
         self.next_frame_action()
 

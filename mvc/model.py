@@ -8,8 +8,11 @@ class GameOfLifeModel:
         self.current_state = [[0 for x in range(102)] for x in range(102)]
         self.next_state = [[0 for x in range(102)] for x in range(102)]
         # TODO: if we have time - convert json object to python lists with lists
+        # initial values of dropdawns
         self.selected_rule = "Rule 1"
         self.selected_pattern = "Glider"
+
+        # initialize lists for reading from json
         self.list_rule = []
         self.list_states = []
         self.rules = []
@@ -20,25 +23,25 @@ class GameOfLifeModel:
         self.alive_result = []
         self.patterns_list = []
         self.patterns = []
+
+        # extract data from json
         self.read_json_files()
 
-    def state(self):
-        """Returns the next state."""
-        return self.next_state
-
     def next(self):
-        """Progress one step and then return the current state."""
+        """Progress one step and then return the next state."""
         self.current_state = self.next_state
-        self.next_state = self.clear_screen()
+        self.next_state = self.clear_screen()  # set values to 0
 
         for x in range(1, 101):
             for y in range(1, 101):
+                # calculate the number of alive neighbours at given coordinates
                 self.neighbours_alive = self.check_neighbours_alive(x, y)
                 # TODO: simplify with for
                 # check for alive cell cases
                 if self.current_state[x][y] == int(self.status[1]):
+                    # compare number of alive neighbours with the values from rule sets
                     if self.neighbours_alive == int(self.alive_nr_neighbours[0]):
-                        self.next_state[x][y] = int(self.alive_result[0])
+                        self.next_state[x][y] = int(self.alive_result[0])  # assign the result value from rule sets
                     if self.neighbours_alive == int(self.alive_nr_neighbours[1]):
                         self.next_state[x][y] = int(self.alive_result[1])
                     if self.neighbours_alive == int(self.alive_nr_neighbours[2]):
@@ -57,8 +60,9 @@ class GameOfLifeModel:
                         self.next_state[x][y] = int(self.alive_result[8])
                 # check for dead cell cases
                 if self.current_state[x][y] == int(self.status[0]):
+                    # compare number of dead neighbours with the values from rule sets
                     if self.neighbours_alive == int(self.dead_nr_neighbours[0]):
-                        self.next_state[x][y] = int(self.dead_result[0])
+                        self.next_state[x][y] = int(self.dead_result[0])  # assign the result value from rule sets
                     if self.neighbours_alive == int(self.dead_nr_neighbours[1]):
                         self.next_state[x][y] = int(self.dead_result[1])
                     if self.neighbours_alive == int(self.dead_nr_neighbours[2]):
@@ -80,27 +84,29 @@ class GameOfLifeModel:
     # TODO: send a list as parameter, to make it usable in controller with next_state
     # check how many neighbours of a cell are alive
     def check_neighbours_alive(self, x, y):
+        # sum the value of the 8 neighbours at given coordinates
         return self.current_state[x - 1][y - 1] + self.current_state[x - 1][y] + self.current_state[x - 1][y + 1] + \
                self.current_state[x][y - 1] +                                    self.current_state[x][y + 1] + \
                self.current_state[x + 1][y - 1] + self.current_state[x + 1][y] + self.current_state[x + 1][y + 1]
 
     def read_json_files(self):
+        # extract data from json file
         with open('config_files/patterns.json') as patterns_file:
             self.pattern_sets = json.load(patterns_file)
         self.read_pattern_sets_config()
-        self.pattern(self.selected_pattern)
         with open('config_files/rule_sets.json') as rules_file:
             self.rule_sets = json.load(rules_file)
         self.read_rule_sets_config()
 
     def read_pattern_sets_config(self):
         # print("model - read_pattern_sets_config")
-        for i in self.pattern_sets:
+        for i in self.pattern_sets:  # go through the json file
             self.patterns_list.append(i)
-        for d in self.patterns_list:
-            for name, pattern in d.items():
-                self.patterns.append(pattern)
-        self.pattern(self.selected_pattern)
+        for d in self.patterns_list:  # go through each object
+            for name, pattern in d.items():  # go for each set of keys and values
+                self.patterns.append(pattern)  # get the name of the pattern
+        self.pattern(self.selected_pattern)  # set the pattern based on name
+        # TODO: simplify
 
     def read_rule_sets_config(self):
         # TODO: simplify the functionality if possible
@@ -143,8 +149,10 @@ class GameOfLifeModel:
         self.alive_result = []
 
     def pattern(self, name):
-        self.next_state = self.clear_screen()
-        if name == self.patterns[0]:
+        self.next_state = self.clear_screen()   # set values to 0
+
+        if name == self.patterns[0]:  # verify if the name received is the same as the one from json
+            # apply the pattern
             self.next_state[49][50] = 1
             self.next_state[50][51] = 1
             self.next_state[51][49] = 1
@@ -184,4 +192,4 @@ class GameOfLifeModel:
             self.next_state[50][54] = 1
 
     def clear_screen(self):
-        return [[0 for x in range(102)] for x in range(102)]
+        return [[0 for x in range(102)] for x in range(102)]  # set values to 0
