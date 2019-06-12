@@ -9,6 +9,7 @@ class GameOfLifeView:
         self.window.title("C&P's Game Of Life")
         self.window.geometry("1000x705")
 
+
         self.rules = []
         self.rules_options = ["Change Rule"] # default value of dropdown
         self.default_rule_text = tk.StringVar(self.window)
@@ -58,6 +59,7 @@ class GameOfLifeView:
 
         # slider for configurable speed
         self.scale_button = tk.Scale(self.right_frame, from_=1, to=1000, length=300, orient=tk.HORIZONTAL)
+        self.scale_button.set(1000)
         self.scale_button.pack(side=TOP, anchor=N, pady=5)
 
         # more buttons
