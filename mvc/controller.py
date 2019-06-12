@@ -19,7 +19,6 @@ class GameOfLifeController:
         self.view.window.mainloop()  # opens the application window
 
     def start_action(self):  # call when the start button is pressed
-        print('start_action')
         self.next_state = self.model.next()
         self.view.draw_next_frame()
         # after(delay, callback)
@@ -30,7 +29,6 @@ class GameOfLifeController:
         self.view.start_button["state"] = "disabled"
 
     def pause_action(self):  # call when the pause button is pressed
-        print('pause_action')
         # stop calling the start_action from the task
         self.view.window.after_cancel(self.task)
         # disable and enable buttons
@@ -38,14 +36,12 @@ class GameOfLifeController:
         self.view.start_button["state"] = "normal"
 
     def next_frame_action(self): # call when the next frame button is pressed
-        print('next_frame_action')
         self.model.next_state = self.next_state
         if not self.user_changes:  # process the next frame only if the user didn't made changes on the frame
             self.next_state = self.model.next()      # process next frame
         self.view.draw_next_frame()                  # draw next frame
 
     def randomize_action(self):  # call when the randomize button is pressed
-        print('randomize_action')
         # TODO: use comprehension list
         # self.model.next_state = [[random.uniform(0, 1) for x in range(100)] for x in range(100)]
         for i in range(1, 101):
@@ -56,13 +52,11 @@ class GameOfLifeController:
                     self.model.next_state[i][j] = 0
 
     def rules_set_menu_action(self, selection):  # call when the rules dropdown is opened
-        print('rules_menu')
         self.model.reset_rules()
         self.model.selected_rule = selection  # assign value from dropdown
         self.model.read_rule_sets_config()  # TODO: read_rule_sets_config(selection)
 
     def patterns_set_menu_action(self, selection):  # call when the patterns dropdown is opened
-        print('patterns_menu')
         self.model.reset_patterns()
         self.model.selected_pattern = selection  # assign value from dropdown
         self.model.read_pattern_sets_config()
@@ -72,11 +66,11 @@ class GameOfLifeController:
         self.next_frame_action()
 
     # check how many neighbours of a cell are alive
-    def check_neighbours_alive(self, x, y):
-        # sum the value of the 8 neighbours at given coordinates
-        return self.model.next_state[x - 1][y - 1] + self.model.next_state[x - 1][y] + self.model.next_state[x - 1][y + 1] + \
-               self.model.next_state[x][y - 1] + self.model.next_state[x][y + 1] + \
-               self.model.next_state[x + 1][y - 1] + self.model.next_state[x + 1][y] + self.model.next_state[x + 1][y + 1]
+    # def check_neighbours_alive(self, x, y):
+    #     # sum the value of the 8 neighbours at given coordinates
+    #     return self.model.next_state[x - 1][y - 1] + self.model.next_state[x - 1][y] + self.model.next_state[x - 1][y + 1] + \
+    #            self.model.next_state[x][y - 1] + self.model.next_state[x][y + 1] + \
+    #            self.model.next_state[x + 1][y - 1] + self.model.next_state[x + 1][y] + self.model.next_state[x + 1][y + 1]
 
     def clear_screen_action(self):  # call when the clear screen button is pressed
         self.next_state = self.model.clear_screen()  # sets the next_state elements to 0

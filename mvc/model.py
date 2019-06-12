@@ -37,8 +37,19 @@ class GameOfLifeModel:
         for x in range(1, 101):
             for y in range(1, 101):
                 # calculate the number of alive neighbours at given coordinates
-                self.neighbours_alive = self.check_neighbours_alive(x, y)
+                self.neighbours_alive = self.check_neighbours_alive(x, y, self.current_state)
                 # TODO: simplify with for
+                # for i in range(0, 8):
+                #     # check for alive cell cases
+                #     if self.current_state[x][y] == int(self.status[1]):
+                #         # compare number of alive neighbours with the values from rule sets
+                #         if self.neighbours_alive == int(self.alive_nr_neighbours[i]):
+                #             self.next_state[x][y] = int(self.alive_result[i])  # assign the result value from rule sets
+                #     # check for dead cell cases
+                #     if self.current_state[x][y] == int(self.status[0]):
+                #         # compare number of dead neighbours with the values from rule sets
+                #         if self.neighbours_alive == int(self.dead_nr_neighbours[i]):
+                #             self.next_state[x][y] = int(self.dead_result[i])  # assign the result value from rule sets
                 # check for alive cell cases
                 if self.current_state[x][y] == int(self.status[1]):
                     # compare number of alive neighbours with the values from rule sets
@@ -85,11 +96,11 @@ class GameOfLifeModel:
 
     # TODO: send a list as parameter, to make it usable in controller with next_state
     # check how many neighbours of a cell are alive
-    def check_neighbours_alive(self, x, y):
+    def check_neighbours_alive(self, x, y, state):
         # sum the value of the 8 neighbours at given coordinates
-        return self.current_state[x - 1][y - 1] + self.current_state[x - 1][y] + self.current_state[x - 1][y + 1] + \
-               self.current_state[x][y - 1] +                                    self.current_state[x][y + 1] + \
-               self.current_state[x + 1][y - 1] + self.current_state[x + 1][y] + self.current_state[x + 1][y + 1]
+        return state[x - 1][y - 1] + state[x - 1][y] + state[x - 1][y + 1] + \
+               state[x][y - 1]     +                   state[x][y + 1] + \
+               state[x + 1][y - 1] + state[x + 1][y] + state[x + 1][y + 1]
 
     def read_json_files(self):
         # extract data from json file
