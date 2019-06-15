@@ -27,16 +27,11 @@ class GameOfLifeModel:
             for y in range(1, 101):
                 # calculate the number of alive neighbours at given coordinates
                 self.neighbours_alive = self.check_neighbours_alive(x, y)
-                # check for alive cell cases
-                if self.current_state[x][y] == 1:
-                    for i in range(0, 9):
-                        if self.neighbours_alive == i:
-                            self.next_state[x][y] = self.rule_sets[self.selected_rule]['1'][i]  # assign the result value from rule sets
-                # check for dead cell cases
-                if self.current_state[x][y] == 0:
-                    for i in range(0, 9):
-                        if self.neighbours_alive == i:
-                            self.next_state[x][y] = self.rule_sets[self.selected_rule]['0'][i]  # assign the result value from rule sets
+
+                # assign the result value from rule sets
+                self.next_state[x][y] = self.rule_sets[self.selected_rule][         # selected rule name
+                                        str(self.current_state[x][y])][             # 0 or 1 (dead or alive)
+                                        self.neighbours_alive]                      # number between 0 to 8
         return self.next_state
 
     # check how many neighbours of a cell are alive

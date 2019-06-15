@@ -76,5 +76,3 @@ class GameOfLifeController:
     def get_pattern_names(self):
         for i in self.model.pattern_sets:  # go through the list of patterns
             self.patterns.append(i)  # add the keys (pattern names) on the list
-
-
