@@ -9,21 +9,14 @@ class GameOfLifeView:
         self.window.title("C&P's Game Of Life")
         self.window.geometry("1000x705")
 
-
-        self.rules = []
-        self.rules_options = ["Change Rule"] # default value of dropdown
         self.default_rule_text = tk.StringVar(self.window)
-        self.default_rule_text.set(self.rules_options[0])  # set default value
+        self.default_rule_text.set("Change Rule")  # set default value
         # get values from controller, that takes them from the model, which takes the rule names from json file
-        self.rules = self.controller.rules
-        self.rules_options += self.rules  # add the rules in the dropdown
+        self.rules_options = self.controller.rules  # add the rules in the dropdown
 
-        self.patterns = []
-        self.patterns_options = ["Default patterns"]
         self.default_pattern_text = tk.StringVar(self.window)
-        self.default_pattern_text.set(self.patterns_options[0])
-        self.patterns = self.controller.patterns
-        self.patterns_options += self.patterns
+        self.default_pattern_text.set("Default patterns")
+        self.patterns_options = self.controller.patterns
 
         # GUI Frames
         # Frame - widget, similar to a container, used to organize the layout

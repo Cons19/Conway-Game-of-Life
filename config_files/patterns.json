@@ -1,14 +1,6 @@
 [
-  {
-    "Name": "Glider"
-  },
-  {
-    "Name": "Exploder"
-  },
-  {
-    "Name": "Small Exploder"
-  },
-  {
-    "Name": "10 Cell Row"
-  }
+  "Glider",
+  "Exploder",
+  "Small Exploder",
+  "10 Cell Row"
 ]

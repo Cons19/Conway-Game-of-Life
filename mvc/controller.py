@@ -7,13 +7,15 @@ class GameOfLifeController:
     def __init__(self):  # initializer (it's the first piece of code executed in a newly created instance of the class)
         """ initialize variables """
         self.model = mvc.model.GameOfLifeModel(self)  # make an instance of the model class
-        # takes the value from model
-        self.rules = self.model.rules   # rule names from json file
-        self.patterns = self.model.patterns  # pattern names from json file
+
         # declare before initializing the view, because draw_next_frame() needs self.controller.next_state
         self.next_state = self.model.next_state
-
         self.user_changes = False  # boolean used to notify when the user clicks on canvas or changes pattern
+
+        self.rules = []   # rule names from json file
+        self.patterns = []  # pattern names from json file
+        self.get_rule_names()
+        self.get_pattern_names()
         self.view = mvc.view.GameOfLifeView(self)  # make an instance of the view class
 
         self.view.window.mainloop()  # opens the application window
@@ -52,15 +54,10 @@ class GameOfLifeController:
         self.next_frame_action()
 
     def rules_set_menu_action(self, selection):  # call when the rules dropdown is opened
-        self.model.reset_rules()
         self.model.selected_rule = selection  # assign value from dropdown
-        self.model.read_rule_sets_config()
 
     def patterns_set_menu_action(self, selection):  # call when the patterns dropdown is opened
-        self.model.reset_patterns()
-        self.model.selected_pattern = selection  # assign value from dropdown
-        self.model.read_pattern_sets_config()
-
+        self.model.pattern(selection)  # set the pattern based on name
         self.next_state = self.model.next_state  # get values from model
         self.user_changes = True  # notify that the user changed pattern
         self.next_frame_action()
@@ -71,4 +68,13 @@ class GameOfLifeController:
 
     def quit_action(self):  # call when the quit button is pressed
         self.view.window.destroy()
+
+    def get_rule_names(self):
+        for k, v in self.model.rule_sets.items():  # go for each set of keys and values
+            self.rules.append(k)  # add the keys (rule names) on the list
+
+    def get_pattern_names(self):
+        for i in self.model.pattern_sets:  # go through the list of patterns
+            self.patterns.append(i)  # add the keys (pattern names) on the list
+
 

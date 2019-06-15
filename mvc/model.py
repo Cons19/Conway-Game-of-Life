@@ -11,74 +11,32 @@ class GameOfLifeModel:
 
         # initial values of dropdawns
         self.selected_rule = "Rule 1"
-        self.selected_pattern = "Glider"
-
-        # initialize lists for reading from json
-        self.list_rule = []
-        self.list_states = []
-        self.rules = []
-        self.status = []
-        self.dead_nr_neighbours = []
-        self.dead_result = []
-        self.alive_nr_neighbours = []
-        self.alive_result = []
-        self.patterns_list = []
-        self.patterns = []
 
         # extract data from json
-        self.read_json_files()
+        with open('config_files/patterns.json') as patterns_file:
+            self.pattern_sets = json.load(patterns_file)  # send data from json file to pattern_sets list
+        with open('config_files/rule_sets.json') as rules_file:
+            self.rule_sets = json.load(rules_file)        # send data from json file to rule_sets list
+        self.pattern("Glider")
 
     def next(self):
         """Progress one step and then return the next state."""
         self.current_state = self.next_state
         self.next_state = self.clear_screen()  # set values to 0
-
         for x in range(1, 101):
             for y in range(1, 101):
                 # calculate the number of alive neighbours at given coordinates
                 self.neighbours_alive = self.check_neighbours_alive(x, y)
                 # check for alive cell cases
-                if self.current_state[x][y] == int(self.status[1]):
-                    # compare number of alive neighbours with the values from rule sets
-                    if self.neighbours_alive == int(self.alive_nr_neighbours[0]):
-                        self.next_state[x][y] = int(self.alive_result[0])  # assign the result value from rule sets
-                    if self.neighbours_alive == int(self.alive_nr_neighbours[1]):
-                        self.next_state[x][y] = int(self.alive_result[1])
-                    if self.neighbours_alive == int(self.alive_nr_neighbours[2]):
-                        self.next_state[x][y] = int(self.alive_result[2])
-                    if self.neighbours_alive == int(self.alive_nr_neighbours[3]):
-                        self.next_state[x][y] = int(self.alive_result[3])
-                    if self.neighbours_alive == int(self.alive_nr_neighbours[4]):
-                        self.next_state[x][y] = int(self.alive_result[4])
-                    if self.neighbours_alive == int(self.alive_nr_neighbours[5]):
-                        self.next_state[x][y] = int(self.alive_result[5])
-                    if self.neighbours_alive == int(self.alive_nr_neighbours[6]):
-                        self.next_state[x][y] = int(self.alive_result[6])
-                    if self.neighbours_alive == int(self.alive_nr_neighbours[7]):
-                        self.next_state[x][y] = int(self.alive_result[7])
-                    if self.neighbours_alive == int(self.alive_nr_neighbours[8]):
-                        self.next_state[x][y] = int(self.alive_result[8])
+                if self.current_state[x][y] == 1:
+                    for i in range(0, 9):
+                        if self.neighbours_alive == i:
+                            self.next_state[x][y] = self.rule_sets[self.selected_rule]['1'][i]  # assign the result value from rule sets
                 # check for dead cell cases
-                if self.current_state[x][y] == int(self.status[0]):
-                    # compare number of dead neighbours with the values from rule sets
-                    if self.neighbours_alive == int(self.dead_nr_neighbours[0]):
-                        self.next_state[x][y] = int(self.dead_result[0])  # assign the result value from rule sets
-                    if self.neighbours_alive == int(self.dead_nr_neighbours[1]):
-                        self.next_state[x][y] = int(self.dead_result[1])
-                    if self.neighbours_alive == int(self.dead_nr_neighbours[2]):
-                        self.next_state[x][y] = int(self.dead_result[2])
-                    if self.neighbours_alive == int(self.dead_nr_neighbours[3]):
-                        self.next_state[x][y] = int(self.dead_result[3])
-                    if self.neighbours_alive == int(self.dead_nr_neighbours[4]):
-                        self.next_state[x][y] = int(self.dead_result[4])
-                    if self.neighbours_alive == int(self.dead_nr_neighbours[5]):
-                        self.next_state[x][y] = int(self.dead_result[5])
-                    if self.neighbours_alive == int(self.dead_nr_neighbours[6]):
-                        self.next_state[x][y] = int(self.dead_result[6])
-                    if self.neighbours_alive == int(self.dead_nr_neighbours[7]):
-                        self.next_state[x][y] = int(self.dead_result[7])
-                    if self.neighbours_alive == int(self.dead_nr_neighbours[8]):
-                        self.next_state[x][y] = int(self.dead_result[8])
+                if self.current_state[x][y] == 0:
+                    for i in range(0, 9):
+                        if self.neighbours_alive == i:
+                            self.next_state[x][y] = self.rule_sets[self.selected_rule]['0'][i]  # assign the result value from rule sets
         return self.next_state
 
     # check how many neighbours of a cell are alive
@@ -88,64 +46,17 @@ class GameOfLifeModel:
                self.current_state[x][y - 1]                     +                self.current_state[x][y + 1] + \
                self.current_state[x + 1][y - 1] + self.current_state[x + 1][y] + self.current_state[x + 1][y + 1]
 
-    def read_json_files(self):
-        # extract data from json file
-        with open('config_files/patterns.json') as patterns_file:
-            self.pattern_sets = json.load(patterns_file)
-        self.read_pattern_sets_config()
-        with open('config_files/rule_sets.json') as rules_file:
-            self.rule_sets = json.load(rules_file)
-        self.read_rule_sets_config()
-
-    def read_pattern_sets_config(self):
-        # print("model - read_pattern_sets_config")
-        for i in self.pattern_sets:  # go through the json file
-            self.patterns_list.append(i)
-        for d in self.patterns_list:  # go through each object
-            for name, pattern in d.items():  # go for each set of keys and values
-                self.patterns.append(pattern)  # get the name of the pattern
-        self.pattern(self.selected_pattern)  # set the pattern based on name
-
-    def read_rule_sets_config(self):
-        for i in self.rule_sets:
-            self.rules.append(i)
-            if i == self.selected_rule:
-                self.list_rule.append(self.rule_sets[i])
-                for j in self.rule_sets[i]:
-                    self.status.append(j)
-                    self.list_states.append(self.rule_sets[i][j])
-        for d in self.list_states[0]:
-            for nr_neighbours, result in d.items():
-                self.dead_nr_neighbours.append(nr_neighbours)
-                self.dead_result.append(result)
-        for d in self.list_states[1]:
-            for nr_neighbours, result in d.items():
-                self.alive_nr_neighbours.append(nr_neighbours)
-                self.alive_result.append(result)
-
-    def reset_patterns(self):
-        self.patterns_list = []
-        self.patterns = []
-
-    def reset_rules(self):
-        self.list_rule = []
-        self.list_states = []
-        self.status = []
-        self.dead_nr_neighbours = []
-        self.dead_result = []
-        self.alive_nr_neighbours = []
-        self.alive_result = []
-
     def pattern(self, name):
         self.next_state = self.clear_screen()   # set values to 0
-        if name == self.patterns[0]:  # verify if the name received is the same as the one from json
+
+        if name == self.pattern_sets[0]:  # verify if the name received is the same as the one from json
             # apply the pattern
             self.next_state[49][50] = 1
             self.next_state[50][51] = 1
             self.next_state[51][49] = 1
             self.next_state[51][50] = 1
             self.next_state[51][51] = 1
-        elif name == self.patterns[1]:
+        elif name == self.pattern_sets[1]:
             self.next_state[48][48] = 1
             self.next_state[48][50] = 1
             self.next_state[48][52] = 1
@@ -158,7 +69,7 @@ class GameOfLifeModel:
             self.next_state[52][48] = 1
             self.next_state[52][50] = 1
             self.next_state[52][52] = 1
-        elif name == self.patterns[2]:
+        elif name == self.pattern_sets[2]:
             self.next_state[49][49] = 1
             self.next_state[50][48] = 1
             self.next_state[50][49] = 1
@@ -166,7 +77,7 @@ class GameOfLifeModel:
             self.next_state[51][48] = 1
             self.next_state[51][50] = 1
             self.next_state[52][49] = 1
-        elif name == self.patterns[3]:
+        elif name == self.pattern_sets[3]:
             self.next_state[50][45] = 1
             self.next_state[50][46] = 1
             self.next_state[50][47] = 1
