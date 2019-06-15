@@ -71,7 +71,6 @@ class GameOfLifeView:
         self.draw_next_frame()  # draw on the canvas, the first frame, right after the application runs
 
     def draw_next_frame(self):
-        # print('draw_next_frame()')
         # clear canvas
         self.canvas.delete(ALL)  # delete all objects from canvas
 

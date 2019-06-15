@@ -9,7 +9,6 @@ class GameOfLifeModel:
         self.current_state = [[0 for x in range(102)] for x in range(102)]
         self.next_state = [[0 for x in range(102)] for x in range(102)]
 
-        # TODO: if we have time - convert json object to python lists with lists
         # initial values of dropdawns
         self.selected_rule = "Rule 1"
         self.selected_pattern = "Glider"
@@ -37,19 +36,7 @@ class GameOfLifeModel:
         for x in range(1, 101):
             for y in range(1, 101):
                 # calculate the number of alive neighbours at given coordinates
-                self.neighbours_alive = self.check_neighbours_alive(x, y, self.current_state)
-                # TODO: simplify with for
-                # for i in range(0, 8):
-                #     # check for alive cell cases
-                #     if self.current_state[x][y] == int(self.status[1]):
-                #         # compare number of alive neighbours with the values from rule sets
-                #         if self.neighbours_alive == int(self.alive_nr_neighbours[i]):
-                #             self.next_state[x][y] = int(self.alive_result[i])  # assign the result value from rule sets
-                #     # check for dead cell cases
-                #     if self.current_state[x][y] == int(self.status[0]):
-                #         # compare number of dead neighbours with the values from rule sets
-                #         if self.neighbours_alive == int(self.dead_nr_neighbours[i]):
-                #             self.next_state[x][y] = int(self.dead_result[i])  # assign the result value from rule sets
+                self.neighbours_alive = self.check_neighbours_alive(x, y)
                 # check for alive cell cases
                 if self.current_state[x][y] == int(self.status[1]):
                     # compare number of alive neighbours with the values from rule sets
@@ -94,13 +81,12 @@ class GameOfLifeModel:
                         self.next_state[x][y] = int(self.dead_result[8])
         return self.next_state
 
-    # TODO: send a list as parameter, to make it usable in controller with next_state
     # check how many neighbours of a cell are alive
-    def check_neighbours_alive(self, x, y, state):
+    def check_neighbours_alive(self, x, y):
         # sum the value of the 8 neighbours at given coordinates
-        return state[x - 1][y - 1] + state[x - 1][y] + state[x - 1][y + 1] + \
-               state[x][y - 1]     +                   state[x][y + 1] + \
-               state[x + 1][y - 1] + state[x + 1][y] + state[x + 1][y + 1]
+        return self.current_state[x - 1][y - 1] + self.current_state[x - 1][y] + self.current_state[x - 1][y + 1] + \
+               self.current_state[x][y - 1]                     +                self.current_state[x][y + 1] + \
+               self.current_state[x + 1][y - 1] + self.current_state[x + 1][y] + self.current_state[x + 1][y + 1]
 
     def read_json_files(self):
         # extract data from json file
@@ -119,30 +105,19 @@ class GameOfLifeModel:
             for name, pattern in d.items():  # go for each set of keys and values
                 self.patterns.append(pattern)  # get the name of the pattern
         self.pattern(self.selected_pattern)  # set the pattern based on name
-        # TODO: simplify
 
     def read_rule_sets_config(self):
-        # TODO: simplify the functionality if possible
-        # TODO: use dictionary for neighbours and results
-        # print("model - read_rule_sets_config")
-        # print(self.selected_rule)
         for i in self.rule_sets:
             self.rules.append(i)
             if i == self.selected_rule:
-                # print(self.rule_sets[i])
                 self.list_rule.append(self.rule_sets[i])
                 for j in self.rule_sets[i]:
                     self.status.append(j)
                     self.list_states.append(self.rule_sets[i][j])
-        # print(self.status[1])
-        # print(self.rule_sets[self.rules[0]])
         for d in self.list_states[0]:
             for nr_neighbours, result in d.items():
                 self.dead_nr_neighbours.append(nr_neighbours)
                 self.dead_result.append(result)
-        # print("list_states")
-        # print(self.list_states)
-        # print("--")
         for d in self.list_states[1]:
             for nr_neighbours, result in d.items():
                 self.alive_nr_neighbours.append(nr_neighbours)
@@ -205,3 +180,4 @@ class GameOfLifeModel:
 
     def clear_screen(self):
         return [[0 for x in range(102)] for x in range(102)]  # set values to 0
+

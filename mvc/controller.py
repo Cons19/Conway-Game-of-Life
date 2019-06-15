@@ -42,19 +42,19 @@ class GameOfLifeController:
         self.view.draw_next_frame()                  # draw next frame
 
     def randomize_action(self):  # call when the randomize button is pressed
-        # TODO: use comprehension list
-        # self.model.next_state = [[random.uniform(0, 1) for x in range(100)] for x in range(100)]
         for i in range(1, 101):
             for j in range(1, 101):
                 if random.uniform(0, 1) > 0.5:
                     self.model.next_state[i][j] = 1
                 else:
                     self.model.next_state[i][j] = 0
+        self.user_changes = True  # notify that the user changed pattern
+        self.next_frame_action()
 
     def rules_set_menu_action(self, selection):  # call when the rules dropdown is opened
         self.model.reset_rules()
         self.model.selected_rule = selection  # assign value from dropdown
-        self.model.read_rule_sets_config()  # TODO: read_rule_sets_config(selection)
+        self.model.read_rule_sets_config()
 
     def patterns_set_menu_action(self, selection):  # call when the patterns dropdown is opened
         self.model.reset_patterns()
@@ -64,13 +64,6 @@ class GameOfLifeController:
         self.next_state = self.model.next_state  # get values from model
         self.user_changes = True  # notify that the user changed pattern
         self.next_frame_action()
-
-    # check how many neighbours of a cell are alive
-    # def check_neighbours_alive(self, x, y):
-    #     # sum the value of the 8 neighbours at given coordinates
-    #     return self.model.next_state[x - 1][y - 1] + self.model.next_state[x - 1][y] + self.model.next_state[x - 1][y + 1] + \
-    #            self.model.next_state[x][y - 1] + self.model.next_state[x][y + 1] + \
-    #            self.model.next_state[x + 1][y - 1] + self.model.next_state[x + 1][y] + self.model.next_state[x + 1][y + 1]
 
     def clear_screen_action(self):  # call when the clear screen button is pressed
         self.next_state = self.model.clear_screen()  # sets the next_state elements to 0
