@@ -6,7 +6,7 @@ import random
 class GameOfLifeController:
     def __init__(self):  # initializer (it's the first piece of code executed in a newly created instance of the class)
         """ initialize variables """
-        self.model = mvc.model.GameOfLifeModel(self)  # make an instance of the model class
+        self.model = mvc.model.GameOfLifeModel()  # make an instance of the model class
 
         # declare before initializing the view, because draw_next_frame() needs self.controller.next_state
         self.next_state = self.model.next_state
@@ -39,7 +39,7 @@ class GameOfLifeController:
 
     def next_frame_action(self): # call when the next frame button is pressed
         self.model.next_state = self.next_state
-        if not self.user_changes:  # process the next frame only if the user didn't made changes on the frame
+        if not self.user_changes:  # process the next frame only if the user didn't made changes on the frame (if false)
             self.next_state = self.model.next()      # process next frame
         self.view.draw_next_frame()                  # draw next frame
 

@@ -9,15 +9,6 @@ class GameOfLifeView:
         self.window.title("C&P's Game Of Life")
         self.window.geometry("1000x705")
 
-        self.default_rule_text = tk.StringVar(self.window)
-        self.default_rule_text.set("Change Rule")  # set default value
-        # get values from controller, that takes them from the model, which takes the rule names from json file
-        self.rules_options = self.controller.rules  # add the rules in the dropdown
-
-        self.default_pattern_text = tk.StringVar(self.window)
-        self.default_pattern_text.set("Default patterns")
-        self.patterns_options = self.controller.patterns
-
         # GUI Frames
         # Frame - widget, similar to a container, used to organize the layout
         self.body_frame = Frame(self.window)
@@ -45,9 +36,21 @@ class GameOfLifeView:
         self.randomize_button.pack(side=TOP, anchor=N, pady=5)
 
         # dropdowns
-        self.pattern_set_menu = tk.OptionMenu(self.right_frame, self.default_pattern_text, *self.patterns_options, command=self.controller.patterns_set_menu_action)
+        self.default_pattern_text = tk.StringVar(self.window)
+        self.default_pattern_text.set("Default patterns")
+        self.patterns_options = self.controller.patterns
+
+        self.pattern_set_menu = tk.OptionMenu(self.right_frame, self.default_pattern_text, *self.patterns_options,
+                                              command=self.controller.patterns_set_menu_action)
         self.pattern_set_menu.pack(side=TOP, anchor=N, pady=5)
-        self.rule_set_menu = tk.OptionMenu(self.right_frame, self.default_rule_text, *self.rules_options, command=self.controller.rules_set_menu_action)
+
+        self.default_rule_text = tk.StringVar(self.window)
+        self.default_rule_text.set("Change Rule")  # set default value
+        # get values from controller, that takes them from the model, which takes the rule names from json file
+        self.rules_options = self.controller.rules  # add the rules in the dropdown
+
+        self.rule_set_menu = tk.OptionMenu(self.right_frame, self.default_rule_text, *self.rules_options,
+                                           command=self.controller.rules_set_menu_action)
         self.rule_set_menu.pack(side=TOP, anchor=N, pady=5)
 
         # slider for configurable speed
@@ -83,7 +86,8 @@ class GameOfLifeView:
                 if self.controller.next_state[j][i]:  # array of arrays [j - row][i - column]
                     # draw square based on given coordinates
                     # create_rectangle(x1, y1, x2, y2, **kwargs)
-                    self.canvas.create_rectangle(((i-1) * size) + 1, ((j-1) * size) + 1, (i-1) * size + size, (j-1) * size + size, fill='#000000', width=0)
+                    self.canvas.create_rectangle(((i-1) * size) + 1, ((j-1) * size) + 1,
+                                                 (i-1) * size + size, (j-1) * size + size, fill='#000000', width=0)
         self.controller.user_changes = False  # mark that the user change is over
 
     def round_number(self, number): # round down a number (74 to 70)
@@ -96,7 +100,7 @@ class GameOfLifeView:
             for j in range(1, 101):
                 # check if the cursor x and y coordinates correspond to the matrix coordinates
                 if i == self.round_number(event.x)/size and j == self.round_number(event.y)/size:
-                    if self.controller.next_state[j+1][i+1] == 1: # if cell is alive, then it becomes dead
+                    if self.controller.next_state[j][i] == 1: # if cell is alive, then it becomes dead
                         self.controller.next_state[j+1][i+1] = 0
                     else: # if cell is dead, then it becomes alive
                         self.controller.next_state[j+1][i+1] = 1
