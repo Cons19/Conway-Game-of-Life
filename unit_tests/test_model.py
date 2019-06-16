@@ -1,7 +1,6 @@
 import unittest
 
 from mvc.model import GameOfLifeModel
-from mvc.controller import GameOfLifeController
 
 # to run the tests:  python -m unit_tests.test_model
 # to run the tests:  python3 -m unit_tests.test_model
@@ -11,7 +10,7 @@ class TestModel(unittest.TestCase):
     # called before each test method, to prepare it
     def setUp(self):
         # make an instance of the model class, add the controller as a parameter
-        self.model = GameOfLifeModel(GameOfLifeController)
+        self.model = GameOfLifeModel()
         self.current_state = self.model.current_state  # get values from model
 
         # set values of Glider pattern
