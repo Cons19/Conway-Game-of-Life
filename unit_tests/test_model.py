@@ -19,6 +19,7 @@ class TestModel(unittest.TestCase):
         self.current_state[51][49] = 1
         self.current_state[51][50] = 1
         self.current_state[51][51] = 1
+
         self.next_state = self.current_state
         self.model.next_state = self.next_state  # set value of Glider pattern to the model next_state
         self.next_state = self.model.next()  # process next state
