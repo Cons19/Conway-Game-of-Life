@@ -100,7 +100,7 @@ class GameOfLifeView:
             for j in range(1, 101):
                 # check if the cursor x and y coordinates correspond to the matrix coordinates
                 if i == self.round_number(event.x)/size and j == self.round_number(event.y)/size:
-                    if self.controller.next_state[j][i] == 1: # if cell is alive, then it becomes dead
+                    if self.controller.next_state[j+1][i+1] == 1: # if cell is alive, then it becomes dead
                         self.controller.next_state[j+1][i+1] = 0
                     else: # if cell is dead, then it becomes alive
                         self.controller.next_state[j+1][i+1] = 1
