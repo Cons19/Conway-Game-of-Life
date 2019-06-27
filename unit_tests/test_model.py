@@ -3,7 +3,6 @@ import unittest
 from mvc.model import GameOfLifeModel
 
 # to run the tests:  python -m unit_tests.test_model
-# to run the tests:  python3 -m unit_tests.test_model
 
 
 class TestModel(unittest.TestCase):
